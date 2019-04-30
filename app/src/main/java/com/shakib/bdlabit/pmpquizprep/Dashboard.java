@@ -28,7 +28,6 @@ public class Dashboard extends AppCompatActivity {
         dbRepo = new DBRepo(realm);
 
         String subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
-        Toast.makeText(this, ""+subName, Toast.LENGTH_SHORT).show();
         setUpOnClickListener();
 
     }
