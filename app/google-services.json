@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "452056543863",
+    "firebase_url": "https://pmp-quiz-prep.firebaseio.com",
+    "project_id": "pmp-quiz-prep",
+    "storage_bucket": "pmp-quiz-prep.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452056543863:android:2a6932fefd15186a",
+        "android_client_info": {
+          "package_name": "com.shakib.bdlabit.pmpquizprep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452056543863-27sjg2i5p24n55t6mbfe2minkgbghfmh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shakib.bdlabit.pmpquizprep",
+            "certificate_hash": "9305bb27637226da30a6ad8ac30b623b9d8b6c26"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYxyJhFA6VyYO-56w94dIbyvYGBCmvTyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452056543863-q9t98rigjdlrqogf1ba4qm3bstc4oto0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

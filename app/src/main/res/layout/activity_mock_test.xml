@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/containerView"
+    tools:context=".MockTest">
+
+    <ImageButton
+        android:id="@+id/cancel_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@color/orange"
+        android:src="@drawable/ic_close_black_24dp"/>
+
+    <ImageButton
+        android:id="@+id/favorite_button"
+        android:layout_alignParentEnd="true"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@color/orange"
+        android:src="@drawable/ic_favorite_border_black_24dp"/>
+
+    <ProgressBar
+        android:id="@+id/timer"
+        android:layout_toEndOf="@+id/cancel_button"
+        android:layout_toStartOf="@+id/favorite_button"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/orange"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal" />
+
+    <TextView
+        android:id="@+id/counter"
+        android:layout_below="@+id/favorite_button"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="1/10"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_below="@+id/counter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/question_image"
+            android:layout_below="@+id/cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/question"
+            android:layout_below="@+id/question_image"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
+
+        <ScrollView
+            android:layout_below="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:visibility="invisible"
+                android:layout_marginEnd="8dp">
+
+                <RadioButton
+                    android:id="@+id/option_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textSize="20sp"/>
+
+                <RadioButton
+                    android:id="@+id/option_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textSize="20sp"/>
+
+                <RadioButton
+                    android:id="@+id/option_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textSize="20sp"/>
+
+                <RadioButton
+                    android:id="@+id/option_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textSize="20sp"/>
+
+            </RadioGroup>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@color/light_green"
+        android:text="next"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_width="100dp"
+        android:layout_height="50dp" />
+
+
+
+</RelativeLayout>

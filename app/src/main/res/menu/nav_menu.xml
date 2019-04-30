@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_fullmock"
+        android:title="Full Mock"
+        android:icon="@drawable/ic_content_copy_black_24dp"/>
+
+    <item android:id="@+id/menu_practice"
+        android:title="Practice"
+        android:icon="@drawable/ic_content_paste_black_24dp"/>
+
+    <item android:id="@+id/menu_chapter"
+        android:title="Chapter"
+        android:icon="@drawable/ic_assignment_black_24dp"/>
+
+    <item android:id="@+id/menu_flashcard"
+        android:title="Flash Card"
+        android:icon="@drawable/ic_credit_card_black_24dp"/>
+
+    <item android:id="@+id/menu_previous_result"
+        android:title="Previous Result"
+        android:icon="@drawable/ic_restore_black_24dp"/>
+
+    <item android:id="@+id/menu_important_link"
+        android:title="Important Link"
+        android:icon="@drawable/ic_import_contacts_black_24dp"/>
+
+    <item android:id="@+id/menu_go_pro"
+        android:title="Go Pro"
+        android:icon="@drawable/ic_trending_up_black_24dp"/>
+</menu>
