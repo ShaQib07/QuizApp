@@ -64,6 +64,7 @@ public class FullMock extends AppCompatActivity implements NavigationView.OnNavi
         recyclerView = findViewById(R.id.mock_list);
         layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.getRecycledViewPool().setMaxRecycledViews(0,0);
 
         arrayList = new ArrayList<>();
 
@@ -123,5 +124,11 @@ public class FullMock extends AppCompatActivity implements NavigationView.OnNavi
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();
 
         return true;
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        populateGrid();
     }
 }

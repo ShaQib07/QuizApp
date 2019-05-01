@@ -1,50 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".FlashCard">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/flash_card"
+    <com.wajahatkarim3.easyflipview.EasyFlipView
+        android:id="@+id/flip_view"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        app:cardElevation="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardBackgroundColor="@color/ash">
+        app:flipOnTouch="false"
+        app:flipEnabled="true"
+        app:flipDuration="400"
+        app:flipFrom="right"
+        app:flipType="horizontal"
+        app:autoFlipBack="false">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/flash_cardBack"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="350dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@color/ash">
 
-            <TextView
-                android:id="@+id/flashcard_ques"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:text="This is the question"
-                android:textColor="@color/black"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:textAlignment="center"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/flashcard_btn"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:text="See Answer"
-                android:background="@color/light_green"
-                android:textSize="20sp"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/flashcard_ans"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:text="This is the answer"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:textAlignment="center"/>
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/btn_answer"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:text="Next Question"
+                    android:background="@color/redish"
+                    android:textSize="20sp"
+                    android:textColor="@color/black" />
 
-    </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/flash_cardFront"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@color/brown">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/flashcard_ques"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:text="This is the question"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:textAlignment="center"/>
+
+                <Button
+                    android:id="@+id/btn_question"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:text="See Answer"
+                    android:background="@color/light_green"
+                    android:textSize="20sp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </com.wajahatkarim3.easyflipview.EasyFlipView>
 
 </RelativeLayout>
