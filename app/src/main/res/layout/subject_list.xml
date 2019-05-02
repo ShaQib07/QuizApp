@@ -17,8 +17,9 @@
             android:layout_height="wrap_content"
             android:text="Subject Name"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="italic"
+            android:typeface="monospace"
             android:layout_gravity="center"
             android:gravity="center"/>
 

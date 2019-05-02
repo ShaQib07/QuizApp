@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +66,8 @@ public class LocSub extends AppCompatActivity {
     }
 
     private void loadSubjectList() {
+        TextView chooser = findViewById(R.id.chooser);
+        chooser.setVisibility(View.VISIBLE);
 
         subNameList = dbRepo.getAllSubjectName();
         mAdapter = new RecyclerAdapter(subNameList);

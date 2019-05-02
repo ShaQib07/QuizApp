@@ -49,7 +49,9 @@ public class Result extends AppCompatActivity {
             status.setText("PASSED");
         }
 
-
+        if (mockupNo.equalsIgnoreCase("Practice")){
+            seeAnswer.setVisibility(View.GONE);
+        }
 
         seeAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,13 +60,12 @@ public class Result extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(Result.this, Dashboard.class));
+        finish();
+    }
 }

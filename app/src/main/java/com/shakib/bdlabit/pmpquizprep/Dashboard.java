@@ -34,10 +34,16 @@ public class Dashboard extends AppCompatActivity {
 
     private void setUpOnClickListener() {
         fullMock = findViewById(R.id.fullmock);
-        fullMock.setOnClickListener(v -> startActivity(new Intent(Dashboard.this,FullMock.class)));
+        fullMock.setOnClickListener(v -> {
+            startActivity(new Intent(Dashboard.this, FullMock.class));
+            finish();
+        });
 
         practice = findViewById(R.id.practice);
-        practice.setOnClickListener(v -> startActivity(new Intent(Dashboard.this,Practice.class)));
+        practice.setOnClickListener(v -> {
+            startActivity(new Intent(Dashboard.this, Practice.class));
+            finish();
+        });
 
         chapter = findViewById(R.id.chapter);
         chapter.setOnClickListener(v -> startActivity(new Intent(Dashboard.this,Chapter.class)));

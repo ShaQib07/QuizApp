@@ -1,5 +1,6 @@
 package com.shakib.bdlabit.pmpquizprep;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -38,7 +39,7 @@ public class Practice extends AppCompatActivity {
     Realm realm;
     DBRepo dbRepo;
 
-    int i = 2, progress = 0, index = 0;
+    int i = 2, progress = 0, index = 0, right = 0, wrong = 0;
     String subName;
     List<QuestionDB> quesList;
 
@@ -69,7 +70,8 @@ public class Practice extends AppCompatActivity {
 
         if (counter.getText().toString().equals("10/10")) {
             countDownTimer.cancel();
-            Toast.makeText(Practice.this, "Practice Completed", Toast.LENGTH_SHORT).show();
+            wrong = 10 - right;
+            Result.startResult(this, right, wrong, "Practice");
             finish();
         } else {
             counter.setText("" + i + "/10");
@@ -142,6 +144,8 @@ public class Practice extends AppCompatActivity {
                     option3.setEnabled(false);
                     option4.setEnabled(false);
 
+                    checkAnswer(ques);
+
                     if (option1.isChecked()||option2.isChecked()||option3.isChecked()||option4.isChecked()){
                         int correctAns = Integer.valueOf(ques.getCorrectAns());
                         RadioButton userAns = findViewById(options.getCheckedRadioButtonId());
@@ -201,6 +205,52 @@ public class Practice extends AppCompatActivity {
 
         countDownTimer.start();
 
+    }
+
+    private void checkAnswer(QuestionDB ques) {
+
+        if (option1.isChecked()||option2.isChecked()||option3.isChecked()||option4.isChecked()){
+
+            int correctAns = Integer.valueOf(ques.getCorrectAns());
+            String correct = "";
+            RadioButton userAns = findViewById(options.getCheckedRadioButtonId());
+            int answeredOption = -1;
+            switch (correctAns){
+                case 1:
+                    correct = option1.getText().toString();
+                    answeredOption = 1;
+                    break;
+                case 2:
+                    correct = option2.getText().toString();
+                    answeredOption = 2;
+                    break;
+                case 3:
+                    correct = option3.getText().toString();
+                    answeredOption = 3;
+                    break;
+                case 4:
+                    correct = option4.getText().toString();
+                    answeredOption = 4;
+                    break;
+            }
+
+            if (userAns.getText().toString().equals(correct)){
+                right++;
+            } else {
+                wrong++;
+            }
+
+
+
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(Practice.this, Dashboard.class));
+        finish();
     }
 
 

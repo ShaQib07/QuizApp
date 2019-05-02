@@ -8,6 +8,16 @@
     android:layout_margin="8dp"
     tools:context=".LocSub">
 
+    <TextView
+        android:id="@+id/chooser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please choose a subject first..."
+        android:textSize="18sp"
+        android:layout_margin="32dp"
+        android:visibility="invisible"
+        android:textColor="@color/black"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sub_list"
         android:layout_width="match_parent"

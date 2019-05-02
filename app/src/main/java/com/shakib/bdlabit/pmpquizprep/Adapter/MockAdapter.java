@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,14 +57,18 @@ public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterVie
 
         if (arrayList.get(position).isCompleted()){
             holder.card.setCardBackgroundColor(c.getResources().getColor(R.color.redish));
+            holder.mockLock.setVisibility(View.INVISIBLE);
             holder.setItemClickListener((view, position1, isLongClick) -> {
                         Toast.makeText(c, "Already Completed", Toast.LENGTH_SHORT).show();
             }
             );
         } else {
+            holder.card.setCardBackgroundColor(c.getResources().getColor(light_green));
+            holder.mockLock.setVisibility(View.VISIBLE);
             holder.setItemClickListener((view, position1, isLongClick) -> {
                 String mockNo1 = "Mock "+(position1 +1);
                 c.startActivity(new Intent(c.getApplicationContext(), MockTest.class).putExtra("mock", mockNo1));
+                ((Activity)c).finish();
             });
         }
 
@@ -83,6 +88,7 @@ public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterVie
     public class MockAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView mockNo;
+        ImageView mockLock;
         CardView card;
 
         private itemClickListener itemClickListener;
@@ -91,6 +97,7 @@ public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterVie
             super(itemView);
 
             mockNo = itemView.findViewById(R.id.mock_no);
+            mockLock = itemView.findViewById(R.id.mock_lock);
             card = itemView.findViewById(R.id.card);
 
             itemView.setOnClickListener(this);
