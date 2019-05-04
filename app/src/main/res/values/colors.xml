@@ -26,4 +26,6 @@
     <color name="ash">#ced7db</color>
     <color name="right">#00c652</color>
     <color name="wrong">#f44336</color>
+    <color name="purple">#ef6091</color>
+    <color name="violet">#ce93d4</color>
 </resources>

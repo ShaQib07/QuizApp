@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Answer"></activity>
+        <activity android:name=".FlashCardActivity"></activity>
+        <activity android:name=".PracticeActivity" />
+        <activity android:name=".Favorite" />
+        <activity android:name=".Answer" />
         <activity android:name=".Result" />
         <activity
             android:name=".MockTest"

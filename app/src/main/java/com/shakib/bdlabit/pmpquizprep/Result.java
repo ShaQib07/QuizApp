@@ -61,11 +61,4 @@ public class Result extends AppCompatActivity {
         });
 
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(Result.this, Dashboard.class));
-        finish();
-    }
 }

@@ -120,6 +120,9 @@ public class FullMock extends AppCompatActivity implements NavigationView.OnNavi
             startActivity(new Intent(FullMock.this, PreviousResult.class));
         else if (id == R.id.menu_important_link)
             startActivity(new Intent(FullMock.this, ImportantLink.class));
+        else if (id == R.id.menu_change_subject){
+            SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
+            startActivity(new Intent(FullMock.this, LocSub.class));}
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();
 

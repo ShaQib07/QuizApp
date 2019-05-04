@@ -110,6 +110,7 @@ public class MockTest extends AppCompatActivity {
 
             wrong = 10 - right;
             Result.startResult(this, right, wrong, mockUpName);
+            finish();
 
 
 

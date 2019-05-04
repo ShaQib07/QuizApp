@@ -246,12 +246,7 @@ public class Practice extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(Practice.this, Dashboard.class));
-        finish();
-    }
+
 
 
 }

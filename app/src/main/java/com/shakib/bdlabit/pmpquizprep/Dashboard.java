@@ -3,6 +3,7 @@ package com.shakib.bdlabit.pmpquizprep;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -15,8 +16,8 @@ import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import io.realm.Realm;
 
 public class Dashboard extends AppCompatActivity {
-     CardView fullMock, practice, chapter, flashCard, previousResult, importantLink, goPro;
-     ImageButton share, rate;
+     CardView fullMock, practice, chapter, flashCard, previousResult, importantLink, goPro, changeSubject;
+     ImageButton share, rate, favorite;
      Realm realm;
      DBRepo dbRepo;
 
@@ -34,22 +35,16 @@ public class Dashboard extends AppCompatActivity {
 
     private void setUpOnClickListener() {
         fullMock = findViewById(R.id.fullmock);
-        fullMock.setOnClickListener(v -> {
-            startActivity(new Intent(Dashboard.this, FullMock.class));
-            finish();
-        });
+        fullMock.setOnClickListener(v -> startActivity(new Intent(Dashboard.this, FullMock.class)));
 
         practice = findViewById(R.id.practice);
-        practice.setOnClickListener(v -> {
-            startActivity(new Intent(Dashboard.this, Practice.class));
-            finish();
-        });
+        practice.setOnClickListener(v -> startActivity(new Intent(Dashboard.this, PracticeActivity.class)));
 
         chapter = findViewById(R.id.chapter);
         chapter.setOnClickListener(v -> startActivity(new Intent(Dashboard.this,Chapter.class)));
 
         flashCard = findViewById(R.id.flashcard);
-        flashCard.setOnClickListener(v -> startActivity(new Intent(Dashboard.this,FlashCard.class)));
+        flashCard.setOnClickListener(v -> startActivity(new Intent(Dashboard.this,FlashCardActivity.class)));
 
         previousResult = findViewById(R.id.previous_result);
         previousResult.setOnClickListener(v -> startActivity(new Intent(Dashboard.this,PreviousResult.class)));
@@ -60,6 +55,13 @@ public class Dashboard extends AppCompatActivity {
         goPro = findViewById(R.id.go_pro);
         goPro.setOnClickListener(v -> {
 
+        });
+
+        changeSubject = findViewById(R.id.change_subject);
+        changeSubject.setOnClickListener(v -> {
+            SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
+            startActivity(new Intent(Dashboard.this, LocSub.class));
+            finish();
         });
 
         share = findViewById(R.id.share);
@@ -81,6 +83,9 @@ public class Dashboard extends AppCompatActivity {
             final String appPackageName = getApplicationContext().getPackageName();
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" +appPackageName)));
         });
+
+        favorite = findViewById(R.id.favorite);
+        favorite.setOnClickListener(v -> startActivity(new Intent(Dashboard.this, Favorite.class)));
 
     }
 

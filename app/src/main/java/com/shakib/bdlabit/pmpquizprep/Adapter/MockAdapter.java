@@ -68,7 +68,6 @@ public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterVie
             holder.setItemClickListener((view, position1, isLongClick) -> {
                 String mockNo1 = "Mock "+(position1 +1);
                 c.startActivity(new Intent(c.getApplicationContext(), MockTest.class).putExtra("mock", mockNo1));
-                ((Activity)c).finish();
             });
         }
 

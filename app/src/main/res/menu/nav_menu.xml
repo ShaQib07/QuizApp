@@ -24,6 +24,10 @@
         android:title="Important Link"
         android:icon="@drawable/ic_import_contacts_black_24dp"/>
 
+    <item android:id="@+id/menu_change_subject"
+        android:title="Change Subject"
+        android:icon="@drawable/ic_favorite_black_24dp"/>
+
     <item android:id="@+id/menu_go_pro"
         android:title="Go Pro"
         android:icon="@drawable/ic_trending_up_black_24dp"/>
