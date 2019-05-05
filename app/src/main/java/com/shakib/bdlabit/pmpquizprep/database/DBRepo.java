@@ -14,6 +14,7 @@ import com.shakib.bdlabit.pmpquizprep.Utils.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import io.realm.Realm;
@@ -66,6 +67,16 @@ public class DBRepo {
 
     }
 
+    public RealmList<Favourite> getAllFavourite(String subName){
+        RealmList<Favourite> favourites = new RealmList<>();
+
+        RealmResults<Favourite> favouriteRealmResults = realm.where(Favourite.class).equalTo("subjectName", subName).findAll();
+        favourites.addAll(favouriteRealmResults);
+
+        return favourites;
+
+    }
+
 
     public RealmResults<SubjectDB> getAllQuestion() {
         return realm.where(SubjectDB.class).findAllAsync();
@@ -84,7 +95,7 @@ public class DBRepo {
 
     public RealmList<QuestionDB> getSubjectWiseAllQuestion(String subjectName) {
 
-        return realm.where(SubjectDB.class).equalTo("subName", subjectName).findFirst().getQuestionDBRealmList();
+        return Objects.requireNonNull(realm.where(SubjectDB.class).equalTo("subName", subjectName).findFirst()).getQuestionDBRealmList();
     }
 
     public RealmList<QuestionDB> getSubjectWiseRandomQuestion(String subjectName, int quantity) {

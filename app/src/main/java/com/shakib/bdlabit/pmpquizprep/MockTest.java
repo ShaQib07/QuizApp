@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
+import com.shakib.bdlabit.pmpquizprep.database.Favourite;
 import com.shakib.bdlabit.pmpquizprep.database.MockDB;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionMarkDB;
@@ -41,13 +42,14 @@ public class MockTest extends AppCompatActivity {
     Button nextButton;
     RadioGroup options;
     RadioButton option1, option2, option3, option4;
+    QuestionDB ques;
 
     Realm realm;
     DBRepo dbRepo;
 
     int i = 2, progress = 0, index = 0, right = 0, wrong = 0;
     String subName;
-    List<QuestionDB> quesList;
+    RealmList<QuestionDB> quesList;
     //RealmList<QuestionMarkDB> questionMarkDBS;
 
     Map<Integer, QuestionMarkDB> questionMarkDBMap;
@@ -73,7 +75,13 @@ public class MockTest extends AppCompatActivity {
     }
 
     private void onClick() {
-        favoriteButton.setOnClickListener(v -> favoriteButton.setImageResource(R.drawable.ic_favorite_black_24dp));
+        favoriteButton.setOnClickListener(v -> {
+            favoriteButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+            Favourite favourite = new Favourite();
+            favourite.setSubjectName(subName);
+            favourite.setQuestion(ques);
+            realm.executeTransaction(realm -> realm.insertOrUpdate(favourite));
+        });
         nextButton.setOnClickListener(v -> nextQuestion());
         cancelButton.setOnClickListener(v -> {
             counter.setText("10/10");
@@ -104,9 +112,7 @@ public class MockTest extends AppCompatActivity {
             } else {
                 mockDB.setStatus("PASSED");
             }
-            realm.executeTransaction(realm -> {
-              realm.insertOrUpdate(mockDB);
-            });
+            realm.executeTransaction(realm -> realm.insertOrUpdate(mockDB));
 
             wrong = 10 - right;
             Result.startResult(this, right, wrong, mockUpName);
@@ -142,7 +148,7 @@ public class MockTest extends AppCompatActivity {
             i++;
             Animation myAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_animation);
             containerView.startAnimation(myAnim);
-            QuestionDB ques = quesList.get(index);
+            ques = quesList.get(index);
             insertTheAnswer(ques, -1, 0);
             populateView(ques);
         }

@@ -7,22 +7,18 @@ public class Favourite extends RealmObject {
     public Favourite() {
     }
 
-    String subName;
-    int qsnNumber;
+    String subjectName;
+    QuestionDB question;
 
-    public String getSubName() {
-        return subName;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
-    public void setSubName(String subName) {
-        this.subName = subName;
+    public QuestionDB getQuestion() {
+        return question;
     }
 
-    public int getQsnNumber() {
-        return qsnNumber;
-    }
-
-    public void setQsnNumber(int qsnNumber) {
-        this.qsnNumber = qsnNumber;
+    public void setQuestion(QuestionDB question) {
+        this.question = question;
     }
 }
