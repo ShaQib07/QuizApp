@@ -38,6 +38,24 @@ public class DBRepo {
         return subjectName;
     }
 
+    public RealmList<String> getAllPreviousPracName(String subName){
+        RealmList<String> subjectName = new RealmList<>();
+        RealmResults<PracticeDB> subjectDBS = realm.where(PracticeDB.class).equalTo("subjectName", subName).findAll();
+        for (PracticeDB practiceDB : subjectDBS) {
+            subjectName.add(practiceDB.getPracticeName());
+        }
+        return subjectName;
+    }
+
+    public RealmList<String> getAllPreviousFlashName(String subName){
+        RealmList<String> subjectName = new RealmList<>();
+        RealmResults<FlashDB> subjectDBS = realm.where(FlashDB.class).equalTo("subjectName", subName).findAll();
+        for (FlashDB flashDB : subjectDBS) {
+            subjectName.add(flashDB.getFlashCardName());
+        }
+        return subjectName;
+    }
+
     public RealmList<MockDB> getAllPrevMock(String subName){
         RealmList<MockDB> mockList = new RealmList<>();
 

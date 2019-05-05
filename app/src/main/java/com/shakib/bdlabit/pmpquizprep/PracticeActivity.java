@@ -77,17 +77,17 @@ public class PracticeActivity extends AppCompatActivity implements NavigationVie
 
     private void populateGrid() {
 
-        RealmList<String> mockuplist = dbRepo.getAllPreviousMockName(subName);
+        RealmList<String> praclist = dbRepo.getAllPreviousPracName(subName);
 
         for (int i = 1; i <= 100; i++){
-            final String mockNo = "Mock "+i;
-            isCompleted = mockuplist.contains(mockNo);
+            final String pracNo = "Practice "+i;
+            isCompleted = praclist.contains(pracNo);
 
-            MockListItem mockListItem = new MockListItem();
-            mockListItem.setCompleted(isCompleted);
-            mockListItem.setMockName(mockNo);
+            PracticeListItem practiceListItem = new PracticeListItem();
+            practiceListItem.setCompleted(isCompleted);
+            practiceListItem.setPracticeName(pracNo);
 
-            arrayList.add(mockListItem);
+            arrayList.add(practiceListItem);
         }
 
 

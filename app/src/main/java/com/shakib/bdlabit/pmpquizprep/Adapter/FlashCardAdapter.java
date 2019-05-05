@@ -69,7 +69,7 @@ public class FlashCardAdapter extends RecyclerView.Adapter<FlashCardAdapter.Flas
             holder.mockLock.setVisibility(View.VISIBLE);
             holder.setItemClickListener((view, position1, isLongClick) -> {
                 String mockNo1 = "FlashCard "+(position1 +1);
-                c.startActivity(new Intent(c.getApplicationContext(), FlashCard.class).putExtra("mock", mockNo1));
+                c.startActivity(new Intent(c.getApplicationContext(), FlashCard.class).putExtra("flash", mockNo1));
             });
         }
 

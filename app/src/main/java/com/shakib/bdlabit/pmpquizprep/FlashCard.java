@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
+import com.shakib.bdlabit.pmpquizprep.database.FlashDB;
+import com.shakib.bdlabit.pmpquizprep.database.PracticeDB;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
@@ -27,7 +29,7 @@ public class FlashCard extends FragmentActivity {
     Button btn;
     Realm realm;
     DBRepo dbRepo;
-    String subName;
+    String subName, flashName;
     List<QuestionDB> quesList;
     QuestionDB question = new QuestionDB();
     int i = 0, c = 2;
@@ -38,6 +40,8 @@ public class FlashCard extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_card);
+
+        flashName = getIntent().getStringExtra("flash");
 
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);
@@ -66,6 +70,13 @@ public class FlashCard extends FragmentActivity {
 
             } else {
                 if (btn.getText().toString().equalsIgnoreCase("Finish")){
+                    FlashDB flashDB = new FlashDB();
+                    flashDB.setFlashCardName(flashName);
+                    flashDB.setSubjectName(subName);
+
+                    realm.executeTransaction(realm -> {
+                        realm.insertOrUpdate(flashDB);
+                    });
                     Toast.makeText(FlashCard.this, "FlashCard Finished", Toast.LENGTH_SHORT).show();
                     finish();
                 }

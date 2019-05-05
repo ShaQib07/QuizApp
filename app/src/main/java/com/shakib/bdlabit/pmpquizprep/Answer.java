@@ -42,12 +42,7 @@ public class Answer extends AppCompatActivity {
                 .equalTo("subjectName", subName)
                 .equalTo("mockupName", mockupNo)
                 .findFirst();
-//                .addChangeListener(new RealmChangeListener<MockDB>() {
-//                    @Override
-//                    public void onChange(MockDB realmModel) {
-//                        adapter.setData(realmModel.getQuestionMarkDBS());
-//                    }
-//                });
+
 
         adapter.setData(realmModel.getQuestionMarkDBS());
 

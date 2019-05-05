@@ -77,17 +77,17 @@ public class FlashCardActivity extends AppCompatActivity implements NavigationVi
 
     private void populateGrid() {
 
-        RealmList<String> mockuplist = dbRepo.getAllPreviousMockName(subName);
+        RealmList<String> flashList = dbRepo.getAllPreviousFlashName(subName);
 
         for (int i = 1; i <= 100; i++){
-            final String mockNo = "Mock "+i;
-            isCompleted = mockuplist.contains(mockNo);
+            final String flashNo = "FlashCard "+i;
+            isCompleted = flashList.contains(flashNo);
 
-            MockListItem mockListItem = new MockListItem();
-            mockListItem.setCompleted(isCompleted);
-            mockListItem.setMockName(mockNo);
+            FlashCardListItem flashCardListItem = new FlashCardListItem();
+            flashCardListItem.setCompleted(isCompleted);
+            flashCardListItem.setFlashCardName(flashNo);
 
-            arrayList.add(mockListItem);
+            arrayList.add(flashCardListItem);
         }
 
 

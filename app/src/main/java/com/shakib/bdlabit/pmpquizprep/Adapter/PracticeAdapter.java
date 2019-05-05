@@ -68,8 +68,8 @@ public class PracticeAdapter extends RecyclerView.Adapter<PracticeAdapter.Practi
             holder.card.setCardBackgroundColor(c.getResources().getColor(light_green));
             holder.mockLock.setVisibility(View.VISIBLE);
             holder.setItemClickListener((view, position1, isLongClick) -> {
-                String mockNo1 = "Practice "+(position1 +1);
-                c.startActivity(new Intent(c.getApplicationContext(), Practice.class).putExtra("mock", mockNo1));
+                String pracNo1 = "Practice "+(position1 +1);
+                c.startActivity(new Intent(c.getApplicationContext(), Practice.class).putExtra("prac", pracNo1));
             });
         }
 

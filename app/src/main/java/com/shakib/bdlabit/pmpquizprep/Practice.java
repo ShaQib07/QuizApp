@@ -19,11 +19,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
+import com.shakib.bdlabit.pmpquizprep.database.MockDB;
+import com.shakib.bdlabit.pmpquizprep.database.PracticeDB;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
+import com.shakib.bdlabit.pmpquizprep.database.QuestionMarkDB;
 
 import java.util.List;
+import java.util.Map;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 
 public class Practice extends AppCompatActivity {
 
@@ -40,7 +45,7 @@ public class Practice extends AppCompatActivity {
     DBRepo dbRepo;
 
     int i = 2, progress = 0, index = 0, right = 0, wrong = 0;
-    String subName;
+    String subName, pracName;
     List<QuestionDB> quesList;
 
     CountDownTimer countDownTimer;
@@ -49,6 +54,8 @@ public class Practice extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice);
+
+        pracName = getIntent().getStringExtra("prac");
 
         DBsetup();
         viewSetup();
@@ -71,6 +78,15 @@ public class Practice extends AppCompatActivity {
         if (counter.getText().toString().equals("10/10")) {
             countDownTimer.cancel();
             wrong = 10 - right;
+
+            PracticeDB practiceDB = new PracticeDB();
+            practiceDB.setPracticeName(pracName);
+            practiceDB.setSubjectName(subName);
+
+            realm.executeTransaction(realm -> {
+                realm.insertOrUpdate(practiceDB);
+            });
+
             Result.startResult(this, right, wrong, "Practice");
             finish();
         } else {
