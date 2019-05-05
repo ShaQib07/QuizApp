@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shakib.bdlabit.pmpquizprep.Adapter.RecyclerAdapter;
+import com.shakib.bdlabit.pmpquizprep.Utils.Constants;
 import com.shakib.bdlabit.pmpquizprep.Utils.FirebaseEndPoint;
 import com.shakib.bdlabit.pmpquizprep.Utils.MyApplication;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
@@ -55,10 +56,15 @@ public class LocSub extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
+        boolean isDataInserted = SharePreferenceSingleton.getInstance(getApplicationContext()).getBoolean(Constants.DATA_INSERTED);
+
+        if (!isDataInserted){
+            getAllDataFromFirebase() ;
+        }else {
+            loadSubjectList();
+        }
 
 
-
-        getAllDataFromFirebase() ;
 
        // loadSubjectList();
 
@@ -134,6 +140,7 @@ public class LocSub extends AppCompatActivity {
                                                           if (i == dataSnapshot1.getChildrenCount()) {
 
                                                               loadSubjectList();
+                                                              SharePreferenceSingleton.getInstance(getApplicationContext()).saveBoolean(Constants.DATA_INSERTED, true);
                                                               progressDialog.dismiss();
                                                               i=0;
                                                           }

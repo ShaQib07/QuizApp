@@ -28,13 +28,13 @@ public class SharePreferenceSingleton {
     public void saveString(String key, String value) {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
         prefsEditor.putString(key, value);
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
     public void saveBoolean(String key, Boolean bool){
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
         prefsEditor.putBoolean(key, bool);
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
     public String getString(String key) {
@@ -47,7 +47,8 @@ public class SharePreferenceSingleton {
     public Boolean getBoolean(String key){
 
         if(sharedPreferences!= null){
-            return  sharedPreferences.getBoolean(key, false);
+            boolean isDataInserted = sharedPreferences.getBoolean(key, false);
+            return  isDataInserted;
         }
         return false;
     }

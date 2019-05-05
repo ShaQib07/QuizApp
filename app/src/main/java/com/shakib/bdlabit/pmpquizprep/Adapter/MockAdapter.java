@@ -31,10 +31,10 @@ import static com.shakib.bdlabit.pmpquizprep.R.color.light_green;
 
 public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterViewHolder> {
 
-    public Context c;
+    public Activity c;
     public ArrayList<MockListItem> arrayList;
 
-    public MockAdapter(Context c, ArrayList<MockListItem> arrayList){
+    public MockAdapter(Activity c, ArrayList<MockListItem> arrayList){
         this.c = c;
         this.arrayList = arrayList;
     }
@@ -68,6 +68,7 @@ public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterVie
             holder.setItemClickListener((view, position1, isLongClick) -> {
                 String mockNo1 = "Mock "+(position1 +1);
                 c.startActivity(new Intent(c.getApplicationContext(), MockTest.class).putExtra("mock", mockNo1));
+                c.finish();
             });
         }
 

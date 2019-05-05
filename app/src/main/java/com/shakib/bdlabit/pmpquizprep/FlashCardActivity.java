@@ -122,7 +122,7 @@ public class FlashCardActivity extends AppCompatActivity implements NavigationVi
         else if (id == R.id.menu_important_link)
             startActivity(new Intent(FlashCardActivity.this, ImportantLink.class));
         else if (id == R.id.menu_change_subject){
-            SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
+           // SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
             startActivity(new Intent(FlashCardActivity.this, LocSub.class));}
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();

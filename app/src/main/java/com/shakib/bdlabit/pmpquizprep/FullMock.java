@@ -91,7 +91,7 @@ public class FullMock extends AppCompatActivity implements NavigationView.OnNavi
 
 
 
-        mockAdapter = new MockAdapter(getApplicationContext(), arrayList);
+        mockAdapter = new MockAdapter(this, arrayList);
 
         recyclerView.setAdapter(mockAdapter);
         mockAdapter.notifyDataSetChanged();
@@ -121,7 +121,7 @@ public class FullMock extends AppCompatActivity implements NavigationView.OnNavi
         else if (id == R.id.menu_important_link)
             startActivity(new Intent(FullMock.this, ImportantLink.class));
         else if (id == R.id.menu_change_subject){
-            SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
+           // SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
             startActivity(new Intent(FullMock.this, LocSub.class));}
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();

@@ -59,7 +59,7 @@ public class Dashboard extends AppCompatActivity {
 
         changeSubject = findViewById(R.id.change_subject);
         changeSubject.setOnClickListener(v -> {
-            SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
+            //SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
             startActivity(new Intent(Dashboard.this, LocSub.class));
             finish();
         });

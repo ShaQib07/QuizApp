@@ -63,12 +63,12 @@ public class MockTest extends AppCompatActivity {
         setContentView(R.layout.activity_mock_test);
         DBsetup();
         questionMarkDBMap = new HashMap<>();
-        //questionMarkDBS = new RealmList<>();
+
         mockUpName = getIntent().getStringExtra("mock");
         viewSetup();
         fetchData();
+        ques = quesList.get(index);
         onClick();
-        QuestionDB ques = quesList.get(index);
         insertTheAnswer(ques, -1, 0);
         populateView(ques);
 
@@ -80,6 +80,7 @@ public class MockTest extends AppCompatActivity {
             Favourite favourite = new Favourite();
             favourite.setSubjectName(subName);
             favourite.setQuestion(ques);
+            favourite.setId(subName+"_"+ques.getQsnNumber());
             realm.executeTransaction(realm -> realm.insertOrUpdate(favourite));
         });
         nextButton.setOnClickListener(v -> nextQuestion());
