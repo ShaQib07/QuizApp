@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
+import com.shakib.bdlabit.pmpquizprep.database.Favourite;
 import com.shakib.bdlabit.pmpquizprep.database.MockDB;
 import com.shakib.bdlabit.pmpquizprep.database.PracticeDB;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
@@ -40,6 +41,7 @@ public class Practice extends AppCompatActivity {
     Button nextButton;
     RadioGroup options;
     RadioButton option1, option2, option3, option4;
+    QuestionDB ques;
 
     Realm realm;
     DBRepo dbRepo;
@@ -65,7 +67,15 @@ public class Practice extends AppCompatActivity {
     }
 
     private void onClick() {
-        favoriteButton.setOnClickListener(v -> favoriteButton.setImageResource(R.drawable.ic_favorite_black_24dp));
+        favoriteButton.setOnClickListener(v -> {
+            favoriteButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+            Favourite favourite = new Favourite();
+            favourite.setSubjectName(subName);
+            favourite.setQuestion(ques);
+            favourite.setId(subName+"_"+ques.getQsnNumber());
+            realm.executeTransaction(realm -> realm.insertOrUpdate(favourite));
+
+        });
         nextButton.setOnClickListener(v -> nextQuestion());
         cancelButton.setOnClickListener(v -> {
             counter.setText("10/10");
@@ -135,7 +145,7 @@ public class Practice extends AppCompatActivity {
         favoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
         explanation.setVisibility(View.INVISIBLE);
 
-        QuestionDB ques = quesList.get(index);
+        ques = quesList.get(index);
         index++;
 
                 question.setText(ques.getQsn());

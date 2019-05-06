@@ -54,17 +54,17 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Mock
 
         switch (correct){
             case 1:
-                holder.correctAns.setText(arrayList.get(position).getQuestion().getOptions1());
+                holder.correctAns.setText("Correct Answer: "+arrayList.get(position).getQuestion().getOptions1());
                 break;
 
             case 2:
-                holder.correctAns.setText(arrayList.get(position).getQuestion().getOptions2());
+                holder.correctAns.setText("Correct Answer: "+arrayList.get(position).getQuestion().getOptions2());
                 break;
             case 3:
-                holder.correctAns.setText(arrayList.get(position).getQuestion().getOptions3());
+                holder.correctAns.setText("Correct Answer: "+arrayList.get(position).getQuestion().getOptions3());
                 break;
             case 4:
-                holder.correctAns.setText(arrayList.get(position).getQuestion().getOptions4());
+                holder.correctAns.setText("Correct Answer: "+arrayList.get(position).getQuestion().getOptions4());
                 break;
         }
 

@@ -33,10 +33,10 @@ import static com.shakib.bdlabit.pmpquizprep.R.color.light_green;
 
 public class PracticeAdapter extends RecyclerView.Adapter<PracticeAdapter.PracticeAdapterViewHolder> {
 
-    public Context c;
+    public Activity c;
     public ArrayList<PracticeListItem> arrayList;
 
-    public PracticeAdapter(Context c, ArrayList<PracticeListItem> arrayList){
+    public PracticeAdapter(Activity c, ArrayList<PracticeListItem> arrayList){
         this.c = c;
         this.arrayList = arrayList;
     }
@@ -70,6 +70,7 @@ public class PracticeAdapter extends RecyclerView.Adapter<PracticeAdapter.Practi
             holder.setItemClickListener((view, position1, isLongClick) -> {
                 String pracNo1 = "Practice "+(position1 +1);
                 c.startActivity(new Intent(c.getApplicationContext(), Practice.class).putExtra("prac", pracNo1));
+                c.finish();
             });
         }
 

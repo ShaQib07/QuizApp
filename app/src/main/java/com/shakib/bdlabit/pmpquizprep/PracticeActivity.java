@@ -92,7 +92,7 @@ public class PracticeActivity extends AppCompatActivity implements NavigationVie
 
 
 
-        practiceAdapter = new PracticeAdapter(getApplicationContext(), arrayList);
+        practiceAdapter = new PracticeAdapter(this, arrayList);
 
         recyclerView.setAdapter(practiceAdapter);
         practiceAdapter.notifyDataSetChanged();

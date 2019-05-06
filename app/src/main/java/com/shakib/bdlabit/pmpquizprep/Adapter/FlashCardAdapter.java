@@ -33,10 +33,10 @@ import static com.shakib.bdlabit.pmpquizprep.R.color.light_green;
 
 public class FlashCardAdapter extends RecyclerView.Adapter<FlashCardAdapter.FlashCardAdapterViewHolder> {
 
-    public Context c;
+    public Activity c;
     public ArrayList<FlashCardListItem> arrayList;
 
-    public FlashCardAdapter(Context c, ArrayList<FlashCardListItem> arrayList){
+    public FlashCardAdapter(Activity c, ArrayList<FlashCardListItem> arrayList){
         this.c = c;
         this.arrayList = arrayList;
     }
@@ -70,6 +70,7 @@ public class FlashCardAdapter extends RecyclerView.Adapter<FlashCardAdapter.Flas
             holder.setItemClickListener((view, position1, isLongClick) -> {
                 String mockNo1 = "FlashCard "+(position1 +1);
                 c.startActivity(new Intent(c.getApplicationContext(), FlashCard.class).putExtra("flash", mockNo1));
+                c.finish();
             });
         }
 

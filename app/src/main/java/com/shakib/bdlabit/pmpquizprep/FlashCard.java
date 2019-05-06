@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import com.shakib.bdlabit.pmpquizprep.database.FlashDB;
-import com.shakib.bdlabit.pmpquizprep.database.PracticeDB;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 

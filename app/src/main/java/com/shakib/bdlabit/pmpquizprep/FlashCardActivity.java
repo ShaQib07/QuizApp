@@ -92,7 +92,7 @@ public class FlashCardActivity extends AppCompatActivity implements NavigationVi
 
 
 
-        flashCardAdapter = new FlashCardAdapter(getApplicationContext(), arrayList);
+        flashCardAdapter = new FlashCardAdapter(this, arrayList);
 
         recyclerView.setAdapter(flashCardAdapter);
         flashCardAdapter.notifyDataSetChanged();
