@@ -2,6 +2,7 @@ package com.shakib.bdlabit.pmpquizprep;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,13 +12,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.navigation.NavigationView;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.MockDB;
 import com.shakib.bdlabit.pmpquizprep.database.PracticeDB;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import io.realm.Realm;
@@ -29,7 +37,8 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
     NavigationView navigationView;
     TextView correctAns, wrongAns, status;
     int right = 0, wrong = 0;
-    TextView seeAnswer;
+    PieChart pieChart;
+    CardView seeAnswer;
     String mockupNo;
     public static void startResult(Activity activity, int right, int wrong, String mockUpName){
 
@@ -55,7 +64,6 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
         drawerToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-
         right = getIntent().getIntExtra("RIGHT", 0);
         wrong = getIntent().getIntExtra("WRONG", 0);
         mockupNo = getIntent().getStringExtra("mockupNo");
@@ -65,6 +73,32 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
         wrongAns = findViewById(R.id.wrong_ans);
         status = findViewById(R.id.status);
         seeAnswer = findViewById(R.id.see_answer);
+        pieChart = findViewById(R.id.pie_chart);
+
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setExtraOffsets(5, 10, 5, 5);
+        pieChart.setDragDecelerationFrictionCoef(0.99f);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setHoleRadius(20f);
+        pieChart.setTransparentCircleRadius(40f);
+
+        ArrayList<PieEntry> yValues = new ArrayList<>();
+        yValues.add(new PieEntry(right, "Correct"));
+        yValues.add(new PieEntry(wrong, "Wrong"));
+
+        pieChart.animateY(1000, Easing.EasingOption.EaseInExpo);
+
+        PieDataSet dataSet = new PieDataSet(yValues, "");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(getResources().getColor(R.color.right),getResources().getColor(R.color.wrong));
+
+        PieData data = new PieData(dataSet);
+        data.setValueTextSize(10f);
+        data.setValueTextColor(R.color.white);
+
+        pieChart.setData(data);
 
         correctAns.setText("Correct Answer: " + right);
         wrongAns.setText("Wrong Answer: " + wrong);

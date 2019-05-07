@@ -5,99 +5,123 @@ xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/drawerLayout"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".PreviousResult">
+tools:context=".Result">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".Result">
+        android:weightSum="10">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="0dp"
+            android:layout_weight="9"
             app:cardElevation="16dp"
             app:cardCornerRadius="16dp"
             app:cardBackgroundColor="@color/ash"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="80dp">
+            android:layout_marginTop="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginEnd="16dp"
+                android:weightSum="6">
 
-                <TextView
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pie_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Total Questions: 10"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:textSize="20sp"
-                    android:typeface="monospace"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="4"/>
 
-                <TextView
-                    android:id="@+id/correct_ans"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Correct Answer: 7"
-                    android:textStyle="bold"
-                    android:textColor="@color/right"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:textSize="20sp"
-                    android:typeface="monospace"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/wrong_ans"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Wrong Answer: 3"
-                    android:textStyle="bold"
-                    android:textColor="@color/wrong"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:textSize="20sp"
-                    android:typeface="monospace"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total Questions: 10"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:textSize="18sp"
+                        android:typeface="monospace"/>
 
-                <TextView
-                    android:id="@+id/status"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/shape_green"
-                    android:layout_margin="60dp"
-                    android:text="PASSED"
-                    android:textSize="24sp"
-                    android:textColor="@color/black"
-                    android:typeface="monospace"
-                    android:textStyle="bold|italic"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/correct_ans"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Correct Answer: 7"
+                        android:textStyle="bold"
+                        android:textColor="@color/right"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:textSize="18sp"
+                        android:typeface="monospace"/>
+
+                    <TextView
+                        android:id="@+id/wrong_ans"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Wrong Answer: 3"
+                        android:textStyle="bold"
+                        android:textColor="@color/wrong"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:textSize="18sp"
+                        android:typeface="monospace"/>
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/shape_green"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="PASSED"
+                        android:textSize="24sp"
+                        android:textColor="@color/black"
+                        android:typeface="monospace"
+                        android:textStyle="bold|italic"
+                        android:layout_gravity="center"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/see_answer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="40dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp">
 
             <TextView
-                android:id="@+id/see_answer"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/shape_red"
