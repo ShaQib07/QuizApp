@@ -59,9 +59,10 @@ public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterVie
             holder.card.setCardBackgroundColor(c.getResources().getColor(R.color.redish));
             holder.mockLock.setVisibility(View.INVISIBLE);
             holder.setItemClickListener((view, position1, isLongClick) -> {
-                        Toast.makeText(c, "Already Completed", Toast.LENGTH_SHORT).show();
-            }
-            );
+                String mockNo1 = "Mock "+(position1 +1);
+                c.startActivity(new Intent(c.getApplicationContext(), MockTest.class).putExtra("mock", mockNo1));
+                c.finish();
+            });
         } else {
             holder.card.setCardBackgroundColor(c.getResources().getColor(light_green));
             holder.mockLock.setVisibility(View.VISIBLE);

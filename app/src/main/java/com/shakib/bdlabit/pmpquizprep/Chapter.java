@@ -83,15 +83,17 @@ public class Chapter extends AppCompatActivity implements NavigationView.OnNavig
         if (id == R.id.menu_fullmock)
             startActivity(new Intent(Chapter.this, FullMock.class));
         else if (id == R.id.menu_practice)
-            startActivity(new Intent(Chapter.this, Practice.class));
+            startActivity(new Intent(Chapter.this, PracticeActivity.class));
         else if (id == R.id.menu_chapter)
             drawerLayout.closeDrawer(GravityCompat.START);
         else if (id == R.id.menu_flashcard)
-            startActivity(new Intent(Chapter.this, FlashCard.class));
+            startActivity(new Intent(Chapter.this, FlashCardActivity.class));
         else if (id == R.id.menu_previous_result)
             startActivity(new Intent(Chapter.this, PreviousResult.class));
         else if (id == R.id.menu_important_link)
             startActivity(new Intent(Chapter.this, ImportantLink.class));
+        else if (id == R.id.menu_change_subject)
+            startActivity(new Intent(Chapter.this, LocSub.class));
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();
         return true;

@@ -122,7 +122,6 @@ public class PracticeActivity extends AppCompatActivity implements NavigationVie
         else if (id == R.id.menu_important_link)
             startActivity(new Intent(PracticeActivity.this, ImportantLink.class));
         else if (id == R.id.menu_change_subject){
-            //SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
             startActivity(new Intent(PracticeActivity.this, LocSub.class));}
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();

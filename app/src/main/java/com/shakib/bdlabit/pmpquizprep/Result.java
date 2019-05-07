@@ -3,19 +3,30 @@ package com.shakib.bdlabit.pmpquizprep;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.MockDB;
 import com.shakib.bdlabit.pmpquizprep.database.PracticeDB;
 
+import java.util.Objects;
+
 import io.realm.Realm;
 
-public class Result extends AppCompatActivity {
+public class Result extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private ActionBarDrawerToggle drawerToggle;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
     TextView correctAns, wrongAns, status;
     int right = 0, wrong = 0;
     TextView seeAnswer;
@@ -35,6 +46,14 @@ public class Result extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(this);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
         right = getIntent().getIntExtra("RIGHT", 0);
@@ -60,7 +79,42 @@ public class Result extends AppCompatActivity {
             seeAnswer.setVisibility(View.GONE);
         }
 
-        seeAnswer.setOnClickListener(v -> startActivity(new Intent(Result.this, Answer.class).putExtra("mockupNo", mockupNo)));
+        seeAnswer.setOnClickListener(v -> {
+            startActivity(new Intent(Result.this, Answer.class).putExtra("mockupNo", mockupNo));
+            finish();
+        });
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (drawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+        if (id == R.id.menu_fullmock)
+            startActivity(new Intent(Result.this, FullMock.class));
+        else if (id == R.id.menu_practice)
+            startActivity(new Intent(Result.this, PracticeActivity.class));
+        else if (id == R.id.menu_chapter)
+            startActivity(new Intent(Result.this, Chapter.class));
+        else if (id == R.id.menu_flashcard)
+            startActivity(new Intent(Result.this, FlashCardActivity.class));
+        else if (id == R.id.menu_previous_result)
+            startActivity(new Intent(Result.this, PreviousResult.class));
+        else if (id == R.id.menu_important_link)
+            startActivity(new Intent(Result.this, ImportantLink.class));
+        else if (id == R.id.menu_change_subject)
+            startActivity(new Intent(Result.this, LocSub.class));
+        else if (id == R.id.menu_go_pro)
+            Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();
+        return true;
+    }
 }
+
+

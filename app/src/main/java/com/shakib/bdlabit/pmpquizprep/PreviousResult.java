@@ -79,15 +79,17 @@ public class PreviousResult extends AppCompatActivity implements NavigationView.
         if (id == R.id.menu_fullmock)
             startActivity(new Intent(PreviousResult.this, FullMock.class));
         else if (id == R.id.menu_practice)
-            startActivity(new Intent(PreviousResult.this, Practice.class));
+            startActivity(new Intent(PreviousResult.this, PracticeActivity.class));
         else if (id == R.id.menu_chapter)
             startActivity(new Intent(PreviousResult.this, Chapter.class));
         else if (id == R.id.menu_flashcard)
-            startActivity(new Intent(PreviousResult.this, FlashCard.class));
+            startActivity(new Intent(PreviousResult.this, FlashCardActivity.class));
         else if (id == R.id.menu_previous_result)
             drawerLayout.closeDrawer(GravityCompat.START);
         else if (id == R.id.menu_important_link)
             startActivity(new Intent(PreviousResult.this, ImportantLink.class));
+        else if (id == R.id.menu_change_subject)
+            startActivity(new Intent(PreviousResult.this, LocSub.class));
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();
         return true;

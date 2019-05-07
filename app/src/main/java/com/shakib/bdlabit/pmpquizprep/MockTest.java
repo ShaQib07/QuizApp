@@ -95,7 +95,7 @@ public class MockTest extends AppCompatActivity {
         if (counter.getText().toString().equals("10/10")) {
             countDownTimer.cancel();
          //   Toast.makeText(MockTest.this, "Exam Finished", Toast.LENGTH_SHORT).show();
-
+            wrong = 10 - right;
 
             MockDB mockDB = new MockDB();
             mockDB.setMockupName(mockUpName);
@@ -115,7 +115,6 @@ public class MockTest extends AppCompatActivity {
             }
             realm.executeTransaction(realm -> realm.insertOrUpdate(mockDB));
 
-            wrong = 10 - right;
             Result.startResult(this, right, wrong, mockUpName);
             finish();
 

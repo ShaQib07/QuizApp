@@ -111,18 +111,17 @@ public class FullMock extends AppCompatActivity implements NavigationView.OnNavi
         if (id == R.id.menu_fullmock)
             drawerLayout.closeDrawer(GravityCompat.START);
         else if (id == R.id.menu_practice)
-            startActivity(new Intent(FullMock.this, Practice.class));
+            startActivity(new Intent(FullMock.this, PracticeActivity.class));
         else if (id == R.id.menu_chapter)
             startActivity(new Intent(FullMock.this, Chapter.class));
         else if (id == R.id.menu_flashcard)
-            startActivity(new Intent(FullMock.this, FlashCard.class));
+            startActivity(new Intent(FullMock.this, FlashCardActivity.class));
         else if (id == R.id.menu_previous_result)
             startActivity(new Intent(FullMock.this, PreviousResult.class));
         else if (id == R.id.menu_important_link)
             startActivity(new Intent(FullMock.this, ImportantLink.class));
         else if (id == R.id.menu_change_subject){
-           // SharePreferenceSingleton.getInstance(getApplicationContext()).clearData();
-            startActivity(new Intent(FullMock.this, LocSub.class));}
+          startActivity(new Intent(FullMock.this, LocSub.class));}
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();
 

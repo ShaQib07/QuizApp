@@ -90,6 +90,8 @@ public class Favorite extends AppCompatActivity implements NavigationView.OnNavi
             startActivity(new Intent(Favorite.this, PreviousResult.class));
         else if (id == R.id.menu_important_link)
             startActivity(new Intent(Favorite.this, ImportantLink.class));
+        else if (id == R.id.menu_change_subject)
+            startActivity(new Intent(Favorite.this, LocSub.class));
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();
         return true;
