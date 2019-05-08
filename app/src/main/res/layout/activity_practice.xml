@@ -7,10 +7,14 @@
     android:id="@+id/containerView"
     tools:context=".Practice">
 
-    <ImageButton
+    <TextView
         android:id="@+id/cancel_button"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:text="Finish\nExam"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:gravity="center"
         android:background="@color/orange"
         android:src="@drawable/ic_close_black_24dp"/>
 

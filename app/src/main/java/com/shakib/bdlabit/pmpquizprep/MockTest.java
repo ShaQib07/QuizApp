@@ -37,8 +37,8 @@ public class MockTest extends AppCompatActivity {
     RelativeLayout containerView;
     ProgressBar timer;
 
-    ImageButton cancelButton, favoriteButton;
-    TextView question, counter;
+    ImageButton favoriteButton;
+    TextView question, cancelButton, counter;
     Button nextButton;
     RadioGroup options;
     RadioButton option1, option2, option3, option4;

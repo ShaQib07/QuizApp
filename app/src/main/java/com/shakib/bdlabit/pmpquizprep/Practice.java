@@ -36,8 +36,8 @@ public class Practice extends AppCompatActivity {
     RelativeLayout containerView;
     ProgressBar timer;
 
-    ImageButton cancelButton, favoriteButton;
-    TextView question, counter, explanation;
+    ImageButton favoriteButton;
+    TextView question, counter, cancelButton, explanation;
     Button nextButton;
     RadioGroup options;
     RadioButton option1, option2, option3, option4;

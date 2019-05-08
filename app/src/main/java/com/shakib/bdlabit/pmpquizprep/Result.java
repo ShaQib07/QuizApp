@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
     TextView correctAns, wrongAns, status;
     int right = 0, wrong = 0;
     PieChart pieChart;
-    CardView seeAnswer;
+    Button seeAnswer;
     String mockupNo;
     public static void startResult(Activity activity, int right, int wrong, String mockUpName){
 

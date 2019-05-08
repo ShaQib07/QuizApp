@@ -37,12 +37,12 @@ tools:context=".Result">
                     android:id="@+id/pie_chart"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4"/>
+                    android:layout_weight="3"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:orientation="vertical">
 
                     <TextView
@@ -108,22 +108,16 @@ tools:context=".Result">
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/see_answer"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardElevation="8dp"
-            app:cardCornerRadius="8dp">
 
-            <TextView
+            <Button
+                android:id="@+id/see_answer"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/shape_red"
                 android:text="SEE ANSWER"
                 android:textSize="24sp"
@@ -133,7 +127,6 @@ tools:context=".Result">
                 android:layout_gravity="bottom"
                 android:gravity="center"/>
 
-        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
