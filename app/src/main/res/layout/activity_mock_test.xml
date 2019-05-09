@@ -12,6 +12,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:text="Finish\nExam"
+        android:foreground="?android:attr/selectableItemBackground"
         android:textSize="16sp"
         android:textColor="@color/black"
         android:gravity="center"
@@ -52,13 +53,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/question_image"
             android:layout_below="@+id/cancel_button"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scaleType="fitCenter"
-            android:visibility="gone"/>
+            android:src="@drawable/cover"
+            android:visibility="visible"/>
 
         <TextView
             android:id="@+id/question"

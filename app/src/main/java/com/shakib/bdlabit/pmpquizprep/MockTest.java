@@ -8,15 +8,16 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import com.shakib.bdlabit.pmpquizprep.database.Favourite;
@@ -24,9 +25,7 @@ import com.shakib.bdlabit.pmpquizprep.database.MockDB;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionMarkDB;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.realm.Realm;
@@ -36,6 +35,8 @@ public class MockTest extends AppCompatActivity {
 
     RelativeLayout containerView;
     ProgressBar timer;
+
+    PhotoView questionImage;
 
     ImageButton favoriteButton;
     TextView question, cancelButton, counter;
@@ -164,6 +165,7 @@ public class MockTest extends AppCompatActivity {
         containerView = findViewById(R.id.containerView);
         timer = findViewById(R.id.timer);
         question = findViewById(R.id.question);
+        questionImage = findViewById(R.id.question_image);
         counter = findViewById(R.id.counter);
         options = findViewById(R.id.options);
         option1 = findViewById(R.id.option_one);
