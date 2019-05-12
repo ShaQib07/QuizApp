@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.chrisbanes.photoview.PhotoView;
@@ -36,7 +37,7 @@ public class MockTest extends AppCompatActivity {
     RelativeLayout containerView;
     ProgressBar timer;
 
-    PhotoView questionImage;
+    ImageView questionImage;
 
     ImageButton favoriteButton;
     TextView question, cancelButton, counter;
@@ -84,10 +85,26 @@ public class MockTest extends AppCompatActivity {
             favourite.setId(subName+"_"+ques.getQsnNumber());
             realm.executeTransaction(realm -> realm.insertOrUpdate(favourite));
         });
+
         nextButton.setOnClickListener(v -> nextQuestion());
+
         cancelButton.setOnClickListener(v -> {
             counter.setText("10/10");
             nextQuestion();
+        });
+
+        questionImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MockTest.this);
+                View view = getLayoutInflater().inflate(R.layout.full_screen_img, null);
+                PhotoView photoView = view.findViewById(R.id.img);
+                photoView.setImageResource(R.drawable.cover);
+                builder.setView(view);
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
         });
     }
 
