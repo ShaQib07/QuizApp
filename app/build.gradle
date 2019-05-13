@@ -57,5 +57,6 @@ dependencies {
     implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
+    implementation 'com.google.android.gms:play-services-ads:17.2.0'
 }
 apply plugin: 'com.google.gms.google-services'

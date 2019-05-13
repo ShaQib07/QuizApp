@@ -21,6 +21,10 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.MockDB;
@@ -33,6 +37,7 @@ import io.realm.Realm;
 
 public class Result extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private InterstitialAd interstitialAd;
     private ActionBarDrawerToggle drawerToggle;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -69,13 +74,57 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
         wrong = getIntent().getIntExtra("WRONG", 0);
         mockupNo = getIntent().getStringExtra("mockupNo");
 
-
         correctAns = findViewById(R.id.correct_ans);
         wrongAns = findViewById(R.id.wrong_ans);
         status = findViewById(R.id.status);
         seeAnswer = findViewById(R.id.see_answer);
         pieChart = findViewById(R.id.pie_chart);
 
+        showPieChart();
+        showAds();
+
+        correctAns.setText("Correct Answer: " + right);
+        wrongAns.setText("Wrong Answer: " + wrong);
+
+        if (right < 4) {
+            status.setText("FAILED");
+        } else {
+            status.setText("PASSED");
+        }
+
+        if (mockupNo.contains("Practice")){
+            seeAnswer.setVisibility(View.GONE);
+        }
+
+        seeAnswer.setOnClickListener(v -> {
+            if (interstitialAd.isLoaded()){
+                interstitialAd.show();
+            } else {
+                startActivity(new Intent(Result.this, Answer.class).putExtra("mockupNo", mockupNo));
+                finish();
+            }
+        });
+
+    }
+
+    private void showAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build());
+        interstitialAd.setAdListener(new AdListener()
+                                     {
+                                         @Override
+                                         public void onAdClosed() {
+                                             startActivity(new Intent(Result.this, Answer.class).putExtra("mockupNo", mockupNo));
+                                             interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build());
+                                             finish();
+                                         }
+                                     }
+        );
+    }
+
+    private void showPieChart() {
         pieChart.getDescription().setEnabled(false);
         pieChart.setExtraOffsets(5, 10, 5, 5);
         pieChart.setDragDecelerationFrictionCoef(0.99f);
@@ -100,25 +149,6 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
         data.setValueTextColor(R.color.white);
 
         pieChart.setData(data);
-
-        correctAns.setText("Correct Answer: " + right);
-        wrongAns.setText("Wrong Answer: " + wrong);
-
-        if (right < 4) {
-            status.setText("FAILED");
-        } else {
-            status.setText("PASSED");
-        }
-
-        if (mockupNo.contains("Practice")){
-            seeAnswer.setVisibility(View.GONE);
-        }
-
-        seeAnswer.setOnClickListener(v -> {
-            startActivity(new Intent(Result.this, Answer.class).putExtra("mockupNo", mockupNo));
-            finish();
-        });
-
     }
 
     @Override

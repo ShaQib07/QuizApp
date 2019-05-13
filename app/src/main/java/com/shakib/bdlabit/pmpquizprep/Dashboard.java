@@ -10,6 +10,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 
@@ -18,6 +21,7 @@ import io.realm.Realm;
 public class Dashboard extends AppCompatActivity {
      CardView fullMock, practice, chapter, flashCard, previousResult, importantLink, goPro, changeSubject;
      ImageButton share, rate, favorite;
+     AdView adView;
      Realm realm;
      DBRepo dbRepo;
 
@@ -30,7 +34,16 @@ public class Dashboard extends AppCompatActivity {
 
         String subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
         setUpOnClickListener();
+        showAds();
 
+    }
+
+    private void showAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+
+        adView = findViewById(R.id.banner_ad);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build();
+        adView.loadAd(adRequest);
     }
 
     private void setUpOnClickListener() {
