@@ -15,6 +15,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.shakib.bdlabit.pmpquizprep.Adapter.SeeAnswerAdapter;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
@@ -31,6 +36,7 @@ import io.realm.RealmModel;
 public class Answer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ActionBarDrawerToggle drawerToggle;
+    private InterstitialAd interstitialAd;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     String mockupNo;
@@ -72,8 +78,42 @@ public class Answer extends AppCompatActivity implements NavigationView.OnNaviga
 
         adapter.setData(realmModel.getQuestionMarkDBS());
 
-        back.setOnClickListener(v -> finish());
+        showAds();
+        showInterstitialAds();
 
+        back.setOnClickListener(v -> {
+            finish();
+            if (interstitialAd.isLoaded()){
+                interstitialAd.show();
+            } else {
+                finish();
+            }
+        });
+
+    }
+
+    private void showInterstitialAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build());
+        interstitialAd.setAdListener(new AdListener()
+                                     {
+                                         @Override
+                                         public void onAdClosed() {
+                                             interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build());
+                                             finish();
+                                         }
+                                     }
+        );
+    }
+
+    private void showAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+
+        AdView adView = findViewById(R.id.banner_ad);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build();
+        adView.loadAd(adRequest);
     }
 
     @Override
@@ -104,6 +144,17 @@ public class Answer extends AppCompatActivity implements NavigationView.OnNaviga
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (interstitialAd.isLoaded()){
+            interstitialAd.show();
+        } else {
+            super.onBackPressed();
+        }
+
     }
 }
 

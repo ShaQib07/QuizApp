@@ -14,6 +14,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.shakib.bdlabit.pmpquizprep.Adapter.MockAdapter;
 import com.shakib.bdlabit.pmpquizprep.Model.MockListItem;
@@ -70,6 +73,16 @@ public class FullMock extends AppCompatActivity implements NavigationView.OnNavi
 
         populateGrid();
 
+        showAds();
+
+    }
+
+    private void showAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+
+        AdView adView = findViewById(R.id.banner_ad);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build();
+        adView.loadAd(adRequest);
     }
 
     boolean isCompleted = false;

@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.shakib.bdlabit.pmpquizprep.Adapter.FlashCardAdapter;
 import com.shakib.bdlabit.pmpquizprep.Adapter.MockAdapter;
@@ -71,6 +74,16 @@ public class FlashCardActivity extends AppCompatActivity implements NavigationVi
 
         populateGrid();
 
+        showAds();
+
+    }
+
+    private void showAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+
+        AdView adView = findViewById(R.id.banner_ad);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build();
+        adView.loadAd(adRequest);
     }
 
     boolean isCompleted = false;

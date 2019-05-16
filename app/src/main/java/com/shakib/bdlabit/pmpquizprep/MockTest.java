@@ -19,6 +19,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import com.shakib.bdlabit.pmpquizprep.database.Favourite;
@@ -74,6 +77,8 @@ public class MockTest extends AppCompatActivity {
         insertTheAnswer(ques, -1, 0);
         populateView(ques);
 
+        showAds();
+
     }
 
     private void onClick() {
@@ -93,18 +98,24 @@ public class MockTest extends AppCompatActivity {
             nextQuestion();
         });
 
-        questionImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MockTest.this);
-                View view = getLayoutInflater().inflate(R.layout.full_screen_img, null);
-                PhotoView photoView = view.findViewById(R.id.img);
-                photoView.setImageResource(R.drawable.cover);
-                builder.setView(view);
+        questionImage.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MockTest.this);
+            View view = getLayoutInflater().inflate(R.layout.full_screen_img, null);
+            PhotoView photoView = view.findViewById(R.id.img);
+            photoView.setImageResource(R.drawable.cover);
+            ImageButton imageButton = view.findViewById(R.id.close_btn);
 
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
+            builder.setView(view);
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
         });
     }
 
@@ -322,6 +333,14 @@ public class MockTest extends AppCompatActivity {
 
         countDownTimer.start();
 
+    }
+
+    private void showAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+
+        AdView adView = findViewById(R.id.banner_ad);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build();
+        adView.loadAd(adRequest);
     }
 
 

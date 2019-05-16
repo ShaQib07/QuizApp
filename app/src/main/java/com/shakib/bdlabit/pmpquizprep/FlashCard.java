@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import com.shakib.bdlabit.pmpquizprep.database.FlashDB;
@@ -22,6 +27,8 @@ import java.util.List;
 import io.realm.Realm;
 
 public class FlashCard extends FragmentActivity {
+
+    private InterstitialAd interstitialAd;
 
     EasyFlipView flip;
     TextView ques, ans, counter;
@@ -77,7 +84,11 @@ public class FlashCard extends FragmentActivity {
                         realm.insertOrUpdate(flashDB);
                     });
                     Toast.makeText(FlashCard.this, "FlashCard Finished", Toast.LENGTH_SHORT).show();
-                    finish();
+                    if (interstitialAd.isLoaded()){
+                        interstitialAd.show();
+                    } else {
+                        finish();
+                    }
                 }
                 getQuestion();
                 counter.setText(c+"/10");
@@ -88,7 +99,34 @@ public class FlashCard extends FragmentActivity {
             }
         });
 
+        showAds();
+        showInterstitialAds();
 
+
+    }
+
+    private void showAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+
+        AdView adView = findViewById(R.id.banner_ad);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build();
+        adView.loadAd(adRequest);
+    }
+
+    private void showInterstitialAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build());
+        interstitialAd.setAdListener(new AdListener()
+                                     {
+                                         @Override
+                                         public void onAdClosed() {
+                                             interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build());
+                                             finish();
+                                         }
+                                     }
+        );
     }
 
     private void getQuestion() {

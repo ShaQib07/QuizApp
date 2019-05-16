@@ -23,6 +23,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
@@ -93,21 +94,20 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
         }
 
         if (mockupNo.contains("Practice")){
-            seeAnswer.setVisibility(View.GONE);
+            seeAnswer.setVisibility(View.INVISIBLE);
+            showInterstitialAds();
         }
 
         seeAnswer.setOnClickListener(v -> {
-            if (interstitialAd.isLoaded()){
-                interstitialAd.show();
-            } else {
+
                 startActivity(new Intent(Result.this, Answer.class).putExtra("mockupNo", mockupNo));
                 finish();
-            }
+
         });
 
     }
 
-    private void showAds() {
+    private void showInterstitialAds() {
         MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
@@ -116,12 +116,19 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
                                      {
                                          @Override
                                          public void onAdClosed() {
-                                             startActivity(new Intent(Result.this, Answer.class).putExtra("mockupNo", mockupNo));
                                              interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build());
                                              finish();
                                          }
                                      }
         );
+    }
+
+    private void showAds() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+
+        AdView adView = findViewById(R.id.banner_ad);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build();
+        adView.loadAd(adRequest);
     }
 
     private void showPieChart() {
@@ -179,6 +186,19 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
         else if (id == R.id.menu_go_pro)
             Toast.makeText(this, "Go Pro", Toast.LENGTH_SHORT).show();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mockupNo.contains("Practice")){
+            if (interstitialAd.isLoaded()){
+                interstitialAd.show();
+            } else {
+                super.onBackPressed();
+            }
+        } else {
+            super.onBackPressed();
+        }
     }
 }
 
