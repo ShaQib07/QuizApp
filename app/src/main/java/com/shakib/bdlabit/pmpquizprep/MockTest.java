@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,6 +69,9 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
     CountDownTimer countDownTimer;
     String mockUpName;
 
+    boolean isAdLoaded = false;
+    boolean hasWatchedFull = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,11 +101,8 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
         builder.setTitle("UNLOCK!")
                 .setMessage("You have to watch a reward video to proceed.")
                 .setPositiveButton("Play", (dialog, which) -> {
-                    if (rewardedVideoAd.isLoaded()){
-                        rewardedVideoAd.show();
-                    } else {
-                        populateView(ques);
-                    }
+                    rewardedVideoAd.show();
+                    isAdLoaded = true;
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> finish())
                 .show();
@@ -366,7 +368,9 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
 
     @Override
     public void onRewardedVideoAdLoaded() {
-
+        if (isAdLoaded){
+            rewardedVideoAd.show();
+        }
     }
 
     @Override
@@ -381,12 +385,16 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
 
     @Override
     public void onRewardedVideoAdClosed() {
-
+        if (!hasWatchedFull){
+            Toast.makeText(this, "Sorry, you did't watch the full video.", Toast.LENGTH_LONG).show();
+            new Handler().postDelayed(() -> finish(),500);
+        }
     }
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
         populateView(ques);
+        hasWatchedFull = true;
     }
 
     @Override

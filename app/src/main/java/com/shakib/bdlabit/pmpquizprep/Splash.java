@@ -65,4 +65,5 @@ public class Splash extends AppCompatActivity {
 //            showNetworkError.ShowNetworkError(Splash.this);
 //        }
 //    }
+
 }
