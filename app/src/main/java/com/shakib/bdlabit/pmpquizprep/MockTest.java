@@ -110,12 +110,7 @@ public class MockTest extends AppCompatActivity {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
-            imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alertDialog.dismiss();
-                }
-            });
+            imageButton.setOnClickListener(v1 -> alertDialog.dismiss());
         });
     }
 
