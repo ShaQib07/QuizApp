@@ -36,11 +36,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import static com.shakib.bdlabit.pmpquizprep.R.color.light_green;
 
-public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterViewHolder> implements RewardedVideoAdListener {
+public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterViewHolder>{
 
     public Activity c;
     public ArrayList<MockListItem> arrayList;
-    private RewardedVideoAd rewardedVideoAd;
     String mockNo1;
 
     public MockAdapter(Activity c, ArrayList<MockListItem> arrayList){
@@ -61,10 +60,6 @@ public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterVie
     @Override
     public void onBindViewHolder(@NonNull final MockAdapterViewHolder holder, int position) {
 
-        MobileAds.initialize(c.getApplicationContext(),"ca-app-pub-3940256099942544~3347511713");
-        rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(c);
-        rewardedVideoAd.setRewardedVideoAdListener(this);
-        loadRewardedVideoAd();
         final String mockNo = arrayList.get(position).getMockName();
 
         holder.mockNo.setText(mockNo);
@@ -81,25 +76,11 @@ public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterVie
 
         holder.setItemClickListener((view, position1, isLongClick) -> {
             mockNo1 = "Mock "+(position1 +1);
-            AlertDialog.Builder builder = new AlertDialog.Builder(c);
-            builder.setTitle("UNLOCK!")
-                    .setMessage("You have to watch a reward video to proceed.")
-                    .setPositiveButton("Play", (dialog, which) -> {
-                        if (rewardedVideoAd.isLoaded()){
-                            rewardedVideoAd.show();
-                        } else {
-                            c.startActivity(new Intent(c.getApplicationContext(), MockTest.class).putExtra("mock", mockNo1));
-                            c.finish();
-                        }
-                    })
-                    .show();
+            c.startActivity(new Intent(c.getApplicationContext(), MockTest.class).putExtra("mock", mockNo1));
+            c.finish();
         });
 
 
-    }
-
-    private void loadRewardedVideoAd(){
-        rewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
     }
 
 
@@ -113,46 +94,7 @@ public class MockAdapter extends RecyclerView.Adapter<MockAdapter.MockAdapterVie
         return position;
     }
 
-    @Override
-    public void onRewardedVideoAdLoaded() {
-        rewardedVideoAd.show();
-    }
 
-    @Override
-    public void onRewardedVideoAdOpened() {
-
-    }
-
-    @Override
-    public void onRewardedVideoStarted() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-        //loadRewardedVideoAd();
-    }
-
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-        c.startActivity(new Intent(c.getApplicationContext(), MockTest.class).putExtra("mock", mockNo1));
-        c.finish();
-    }
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-
-    }
-
-    @Override
-    public void onRewardedVideoCompleted() {
-
-    }
 
     public class MockAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 

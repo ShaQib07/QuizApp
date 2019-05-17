@@ -1,5 +1,6 @@
 package com.shakib.bdlabit.pmpquizprep;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,6 +23,9 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import com.shakib.bdlabit.pmpquizprep.database.Favourite;
@@ -35,8 +39,9 @@ import java.util.Map;
 import io.realm.Realm;
 import io.realm.RealmList;
 
-public class MockTest extends AppCompatActivity {
+public class MockTest extends AppCompatActivity implements RewardedVideoAdListener {
 
+    private RewardedVideoAd rewardedVideoAd;
     RelativeLayout containerView;
     ProgressBar timer;
 
@@ -66,19 +71,39 @@ public class MockTest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mock_test);
+        loadAd();
         DBsetup();
-        questionMarkDBMap = new HashMap<>();
-
-        mockUpName = getIntent().getStringExtra("mock");
-        viewSetup();
         fetchData();
+        viewSetup();
         ques = quesList.get(index);
+        questionMarkDBMap = new HashMap<>();
+        mockUpName = getIntent().getStringExtra("mock");
+        showAlertDialog();
         onClick();
         insertTheAnswer(ques, -1, 0);
-        populateView(ques);
-
         showAds();
+    }
 
+    private void loadAd() {
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+        rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        rewardedVideoAd.setRewardedVideoAdListener(this);
+        rewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
+    }
+
+    private void showAlertDialog() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("UNLOCK!")
+                .setMessage("You have to watch a reward video to proceed.")
+                .setPositiveButton("Play", (dialog, which) -> {
+                    if (rewardedVideoAd.isLoaded()){
+                        rewardedVideoAd.show();
+                    } else {
+                        populateView(ques);
+                    }
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> finish())
+                .show();
     }
 
     private void onClick() {
@@ -339,4 +364,61 @@ public class MockTest extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        populateView(ques);
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
+    }
+
+    @Override
+    protected void onPause() {
+        rewardedVideoAd.pause(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        rewardedVideoAd.resume(this);
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        rewardedVideoAd.destroy(this);
+        super.onDestroy();
+    }
 }
