@@ -47,6 +47,7 @@ public class PreviousResult extends AppCompatActivity implements NavigationView.
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
+        setTitle(subName);
         mockUpName = new RealmList<>();
 
         drawerLayout = findViewById(R.id.drawerLayout);

@@ -7,13 +7,18 @@ import android.os.Bundle;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 
 public class ImportantLink extends AppCompatActivity {
 
+    String subName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_important_link);
+
+        subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
+        setTitle(subName);
 
         showAds();
     }

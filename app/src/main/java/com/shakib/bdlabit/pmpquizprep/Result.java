@@ -47,6 +47,7 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
     PieChart pieChart;
     Button seeAnswer;
     String mockupNo;
+    String subName;
     public static void startResult(Activity activity, int right, int wrong, String mockUpName){
 
         Intent intent = new Intent(activity, Result.class);
@@ -62,6 +63,9 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
+        setTitle(subName);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigation);

@@ -49,6 +49,7 @@ public class Favorite extends AppCompatActivity implements NavigationView.OnNavi
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
+        setTitle(subName);
         favourites = new RealmList<>();
 
         drawerLayout = findViewById(R.id.drawerLayout);

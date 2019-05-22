@@ -33,6 +33,7 @@ public class Dashboard extends AppCompatActivity {
         dbRepo = new DBRepo(realm);
 
         String subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
+        setTitle(subName);
         setUpOnClickListener();
         showAds();
 

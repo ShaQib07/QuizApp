@@ -53,6 +53,7 @@ public class FullMock extends AppCompatActivity implements NavigationView.OnNavi
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
+        setTitle(subName);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigation);

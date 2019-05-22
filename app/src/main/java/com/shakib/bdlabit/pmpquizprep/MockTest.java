@@ -105,6 +105,7 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
                     isAdLoaded = true;
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> finish())
+                .setCancelable(false)
                 .show();
     }
 
@@ -428,5 +429,17 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
     protected void onDestroy() {
         rewardedVideoAd.destroy(this);
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Exit Mock!")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    finish();
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

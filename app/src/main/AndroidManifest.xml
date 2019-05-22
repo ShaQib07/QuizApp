@@ -35,8 +35,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".FullMock" />
         <activity
-            android:name=".Dashboard"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:name=".Dashboard" />
         <activity
             android:name=".LocSub"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

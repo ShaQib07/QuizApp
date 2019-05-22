@@ -54,6 +54,7 @@ public class Answer extends AppCompatActivity implements NavigationView.OnNaviga
         realm = Realm.getDefaultInstance();
         mockupNo = getIntent().getStringExtra("mockupNo");
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
+        setTitle(subName);
 
         back = findViewById(R.id.back_btn);
 

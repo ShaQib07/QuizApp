@@ -26,7 +26,7 @@ import java.util.List;
 
 import io.realm.Realm;
 
-public class FlashCard extends FragmentActivity {
+public class FlashCard extends AppCompatActivity {
 
     private InterstitialAd interstitialAd;
 
@@ -168,5 +168,17 @@ public class FlashCard extends FragmentActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Exit Mock!")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    finish();
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }
