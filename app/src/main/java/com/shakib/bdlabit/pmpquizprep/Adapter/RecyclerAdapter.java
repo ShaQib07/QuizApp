@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shakib.bdlabit.pmpquizprep.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
@@ -70,5 +71,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     public interface ClickListener {
         void onItemClick(int position, View v);
+    }
+
+    public void filteredList(List<String> filteredLIst){
+        mList = filteredLIst;
+        notifyDataSetChanged();
     }
 }

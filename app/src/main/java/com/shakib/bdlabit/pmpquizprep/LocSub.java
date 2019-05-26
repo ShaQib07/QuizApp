@@ -3,11 +3,16 @@ package com.shakib.bdlabit.pmpquizprep;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +34,11 @@ import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
 import com.shakib.bdlabit.pmpquizprep.database.SubjectDB;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -44,6 +53,7 @@ public class LocSub extends AppCompatActivity {
     Realm realm;
     DBRepo dbRepo;
 
+    EditText searchSub;
     List<String> subNameList;
     ProgressDialog progressDialog;
 
@@ -54,6 +64,7 @@ public class LocSub extends AppCompatActivity {
 
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);
+        searchSub = findViewById(R.id.search);
 
         recyclerView = findViewById(R.id.sub_list);
         layoutManager = new LinearLayoutManager(this);
@@ -69,6 +80,23 @@ public class LocSub extends AppCompatActivity {
             showAds();
         }
 
+        searchSub.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
 
 
        // loadSubjectList();
@@ -76,14 +104,27 @@ public class LocSub extends AppCompatActivity {
 
     }
 
+    private void filter(String key) {
+        List<String> filteredList = new ArrayList<>();
+        for (String s : subNameList){
+            if (s.toLowerCase().contains(key.toLowerCase())){
+                filteredList.add(s);
+            }
+        }
+
+        mAdapter.filteredList(filteredList);
+    }
+
     private void loadSubjectList() {
         TextView chooser = findViewById(R.id.chooser);
         chooser.setVisibility(View.VISIBLE);
+        searchSub.setVisibility(View.VISIBLE);
 
         subNameList = dbRepo.getAllSubjectName();
         mAdapter = new RecyclerAdapter(subNameList);
         mAdapter.setOnItemClickListener((position, v) -> {
             SharePreferenceSingleton.getInstance(getApplicationContext()).saveString("subject", mAdapter.getItem(position));
+            Dashboard.dashBoard.finish();
             startActivity(new Intent(LocSub.this, Dashboard.class));
             finish();
         });

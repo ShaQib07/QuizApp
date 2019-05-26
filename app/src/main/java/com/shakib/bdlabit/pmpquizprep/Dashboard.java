@@ -1,5 +1,6 @@
 package com.shakib.bdlabit.pmpquizprep;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import io.realm.Realm;
 
 public class Dashboard extends AppCompatActivity {
+    public  static Activity dashBoard;
+
      CardView fullMock, practice, chapter, flashCard, previousResult, importantLink, goPro, changeSubject;
      ImageButton share, rate, favorite;
      AdView adView;
@@ -29,6 +32,7 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        dashBoard = this;
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);
 
@@ -100,6 +104,4 @@ public class Dashboard extends AppCompatActivity {
         favorite.setOnClickListener(v -> startActivity(new Intent(Dashboard.this, Favorite.class)));
 
     }
-
-
 }
