@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.shakib.bdlabit.pmpquizprep.Common.common;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 
@@ -32,6 +33,7 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        common.isFirstTime = false;
         dashBoard = this;
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);

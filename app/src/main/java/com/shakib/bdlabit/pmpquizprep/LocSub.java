@@ -26,11 +26,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shakib.bdlabit.pmpquizprep.Adapter.RecyclerAdapter;
+import com.shakib.bdlabit.pmpquizprep.Common.common;
 import com.shakib.bdlabit.pmpquizprep.Utils.Constants;
 import com.shakib.bdlabit.pmpquizprep.Utils.FirebaseEndPoint;
 import com.shakib.bdlabit.pmpquizprep.Utils.MyApplication;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
+import com.shakib.bdlabit.pmpquizprep.database.FlashCardQuesDB;
 import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
 import com.shakib.bdlabit.pmpquizprep.database.SubjectDB;
 
@@ -52,10 +54,12 @@ public class LocSub extends AppCompatActivity {
 
     Realm realm;
     DBRepo dbRepo;
+    SubjectDB subjectDB = new SubjectDB();
 
     EditText searchSub;
     List<String> subNameList;
     ProgressDialog progressDialog;
+    boolean isDataInserted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,7 @@ public class LocSub extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        boolean isDataInserted = SharePreferenceSingleton.getInstance(getApplicationContext()).getBoolean(Constants.DATA_INSERTED);
+        isDataInserted = SharePreferenceSingleton.getInstance(getApplicationContext()).getBoolean(Constants.DATA_INSERTED);
 
         if (!isDataInserted){
             getAllDataFromFirebase() ;
@@ -97,11 +101,6 @@ public class LocSub extends AppCompatActivity {
             }
         });
 
-
-
-       // loadSubjectList();
-
-
     }
 
     private void filter(String key) {
@@ -124,7 +123,10 @@ public class LocSub extends AppCompatActivity {
         mAdapter = new RecyclerAdapter(subNameList);
         mAdapter.setOnItemClickListener((position, v) -> {
             SharePreferenceSingleton.getInstance(getApplicationContext()).saveString("subject", mAdapter.getItem(position));
-            Dashboard.dashBoard.finish();
+            if (!common.isFirstTime){
+                Dashboard.dashBoard.finish();
+            }
+
             startActivity(new Intent(LocSub.this, Dashboard.class));
             finish();
         });
@@ -137,7 +139,7 @@ public class LocSub extends AppCompatActivity {
 
     int i = 0;
 
-    public DatabaseReference getAllDataFromFirebase() {
+    public void getAllDataFromFirebase() {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Setting things up, please wait...");
@@ -162,6 +164,8 @@ public class LocSub extends AppCompatActivity {
 
                     DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference().child(name).child(FirebaseEndPoint.QUESTION);
                     ref1.keepSynced(true);
+                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference().child(name).child(FirebaseEndPoint.FLASHCARD);
+                    ref2.keepSynced(true);
                     ref1.addValueEventListener(new ValueEventListener() {
                                                   @Override
                                                   public void onDataChange(DataSnapshot dataSnapshot) {
@@ -171,7 +175,6 @@ public class LocSub extends AppCompatActivity {
                                                               QuestionDB recentSearchModelFirebase = dataSnapshot1.getValue(QuestionDB.class);
                                                               questionDBRealmList.add(recentSearchModelFirebase);
                                                           }
-                                                          SubjectDB subjectDB = new SubjectDB();
                                                           subjectDB.setSubName(name);
                                                           subjectDB.setQuestionDBRealmList(questionDBRealmList);
 
@@ -198,13 +201,10 @@ public class LocSub extends AppCompatActivity {
                                                   public void onCancelled(DatabaseError databaseError) {
                                                       Toast.makeText(MyApplication.getInstance(), databaseError.getMessage(), Toast.LENGTH_LONG).show();
                                                   }
-                                              }
+                                              });
 
-                    );
+
                 }
-
-
-
 
             }
 
@@ -214,8 +214,6 @@ public class LocSub extends AppCompatActivity {
             }
         };
         ref.addListenerForSingleValueEvent(eventListener);
-
-        return ref;
 
     }
 

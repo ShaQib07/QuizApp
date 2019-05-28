@@ -11,7 +11,8 @@ public interface FirebaseEndPoint {
 
   //write all the end point and reference string here and use them anywhere in the app
 
-    public String QUESTION = "questions";
+    String QUESTION = "questions";
+    String FLASHCARD = "Flashcards";
 
 
 }

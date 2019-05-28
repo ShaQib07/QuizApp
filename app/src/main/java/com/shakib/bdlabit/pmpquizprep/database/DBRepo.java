@@ -77,8 +77,7 @@ public class DBRepo {
 
     }
 
-
-    public RealmResults<SubjectDB> getAllQuestion() {
+    private RealmResults<SubjectDB> getAllQuestion() {
         return realm.where(SubjectDB.class).findAllAsync();
     }
 
@@ -93,7 +92,7 @@ public class DBRepo {
 
 
 
-    public RealmList<QuestionDB> getSubjectWiseAllQuestion(String subjectName) {
+    private RealmList<QuestionDB> getSubjectWiseAllQuestion(String subjectName) {
 
         return Objects.requireNonNull(realm.where(SubjectDB.class).equalTo("subName", subjectName).findFirst()).getQuestionDBRealmList();
     }
@@ -116,6 +115,36 @@ public class DBRepo {
             if (!selectedQuestionNumberList.contains(x)) {
                 selectedQuestionNumberList.add(x);
                 selectedQuestion.add(subjectWiseAllQuestion.get(x));
+            }
+
+        }
+
+        return selectedQuestion;
+    }
+
+    private RealmList<FlashCardQuesDB> getSubjectWiseAllFalshCardQuestion(String subjectName){
+
+        return Objects.requireNonNull(realm.where(SubjectDB.class).equalTo("subName", subjectName).findFirst()).getFlashCardQuesDBRealmList();
+    }
+
+    public RealmList<FlashCardQuesDB> getSubjectWiseRandomFlashCardQuestion(String subjectName, int quantity) {
+        List<Integer> selectedQuestionNumberList = new ArrayList<>();
+        RealmList<FlashCardQuesDB> selectedQuestion = new RealmList<>();
+
+        RealmList<FlashCardQuesDB> subjectWiseAllFlashCardQuestion = getSubjectWiseAllFalshCardQuestion(subjectName);
+
+        if (subjectWiseAllFlashCardQuestion.size() < quantity) {
+            Toast.makeText(MyApplication.getInstance(), "Not enough question", Toast.LENGTH_LONG).show();
+        } else if (subjectWiseAllFlashCardQuestion.size() == quantity) {
+            return selectedQuestion;
+        }
+
+        for (int i = 0; i < quantity; i++) {
+
+            int x = new Random().nextInt((subjectWiseAllFlashCardQuestion.size() - 1) + 1) + 1;
+            if (!selectedQuestionNumberList.contains(x)) {
+                selectedQuestionNumberList.add(x);
+                selectedQuestion.add(subjectWiseAllFlashCardQuestion.get(x));
             }
 
         }

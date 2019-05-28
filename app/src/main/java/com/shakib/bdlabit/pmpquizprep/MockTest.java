@@ -60,6 +60,7 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
     DBRepo dbRepo;
 
     int i = 2, progress = 0, index = 0, right = 0, wrong = 0;
+    int imgId;
     String subName;
     RealmList<QuestionDB> quesList;
     //RealmList<QuestionMarkDB> questionMarkDBS;
@@ -130,7 +131,7 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
             AlertDialog.Builder builder = new AlertDialog.Builder(MockTest.this);
             View view = getLayoutInflater().inflate(R.layout.full_screen_img, null);
             PhotoView photoView = view.findViewById(R.id.img);
-            photoView.setImageResource(R.drawable.cover);
+            photoView.setImageResource(imgId);
             ImageButton imageButton = view.findViewById(R.id.close_btn);
 
             builder.setView(view);
@@ -239,6 +240,8 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
 
         favoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
 
+        loadImage();
+
         question.setText(ques.getQsn());
         options.setVisibility(View.VISIBLE);
         options.clearCheck();
@@ -262,6 +265,19 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
 
         index++;
 
+    }
+
+    private void loadImage() {
+        String imageName = "q" + ques.getQsnNumber();
+        String PACKAGE_NAME = getApplicationContext().getPackageName();
+        imgId = getResources().getIdentifier(PACKAGE_NAME+":drawable/"+imageName, null, null);
+
+        if (imgId == 0){
+            questionImage.setVisibility(View.GONE);
+        } else {
+            questionImage.setVisibility(View.VISIBLE);
+            questionImage.setImageResource(imgId);
+        }
     }
 
     private void checkAnswer(QuestionDB ques) {

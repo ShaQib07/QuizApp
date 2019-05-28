@@ -18,8 +18,8 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
+import com.shakib.bdlabit.pmpquizprep.database.FlashCardQuesDB;
 import com.shakib.bdlabit.pmpquizprep.database.FlashDB;
-import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.List;
@@ -36,8 +36,8 @@ public class FlashCard extends AppCompatActivity {
     Realm realm;
     DBRepo dbRepo;
     String subName, flashName;
-    List<QuestionDB> quesList;
-    QuestionDB question = new QuestionDB();
+    List<FlashCardQuesDB> quesList;
+    FlashCardQuesDB question = new FlashCardQuesDB();
     int i = 0, c = 2;
 
 
@@ -134,7 +134,7 @@ public class FlashCard extends AppCompatActivity {
 
 
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
-        quesList = dbRepo.getSubjectWiseRandomQuestion(subName, 1);
+        quesList = dbRepo.getSubjectWiseRandomFlashCardQuestion(subName, 1);
 
         question = quesList.get(0);
         ques.setText(question.getQsn());
@@ -145,27 +145,27 @@ public class FlashCard extends AppCompatActivity {
 
     private void getAnswer() {
 
+        ans.setText(question.getAns());
 
-
-        int answer = Integer.valueOf(question.getCorrectAns());
-        switch (answer){
-            case 1:
-                ans.setText(question.getOptions1());
-                //Toast.makeText(this, ""+question.getOptions1(), Toast.LENGTH_SHORT).show();
-                break;
-            case 2:
-                ans.setText(question.getOptions2());
-                //Toast.makeText(this, ""+question.getOptions2(), Toast.LENGTH_SHORT).show();
-                break;
-            case 3:
-                ans.setText(question.getOptions3());
-                //Toast.makeText(this, ""+question.getOptions3(), Toast.LENGTH_SHORT).show();
-                break;
-            case 4:
-                ans.setText(question.getOptions4());
-                //Toast.makeText(this, ""+question.getOptions4(), Toast.LENGTH_SHORT).show();
-                break;
-        }
+//        int answer = Integer.valueOf(question.getCorrectAns());
+//        switch (answer){
+//            case 1:
+//                ans.setText(question.getOptions1());
+//                //Toast.makeText(this, ""+question.getOptions1(), Toast.LENGTH_SHORT).show();
+//                break;
+//            case 2:
+//                ans.setText(question.getOptions2());
+//                //Toast.makeText(this, ""+question.getOptions2(), Toast.LENGTH_SHORT).show();
+//                break;
+//            case 3:
+//                ans.setText(question.getOptions3());
+//                //Toast.makeText(this, ""+question.getOptions3(), Toast.LENGTH_SHORT).show();
+//                break;
+//            case 4:
+//                ans.setText(question.getOptions4());
+//                //Toast.makeText(this, ""+question.getOptions4(), Toast.LENGTH_SHORT).show();
+//                break;
+//        }
 
 
     }
