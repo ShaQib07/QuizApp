@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,8 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -39,6 +42,7 @@ public class Practice extends AppCompatActivity {
     RelativeLayout containerView;
     ProgressBar timer;
 
+    ImageView questionImage;
     ImageButton favoriteButton;
     TextView question, counter, cancelButton, explanation;
     Button nextButton;
@@ -50,6 +54,7 @@ public class Practice extends AppCompatActivity {
     DBRepo dbRepo;
 
     int i = 2, progress = 0, index = 0, right = 0, wrong = 0;
+    int imgId;
     String subName, pracName;
     List<QuestionDB> quesList;
 
@@ -71,6 +76,7 @@ public class Practice extends AppCompatActivity {
     }
 
     private void onClick() {
+
         favoriteButton.setOnClickListener(v -> {
             favoriteButton.setImageResource(R.drawable.ic_favorite_black_24dp);
             Favourite favourite = new Favourite();
@@ -80,10 +86,27 @@ public class Practice extends AppCompatActivity {
             realm.executeTransaction(realm -> realm.insertOrUpdate(favourite));
 
         });
+
         nextButton.setOnClickListener(v -> nextQuestion());
+
         cancelButton.setOnClickListener(v -> {
             counter.setText("10/10");
             nextQuestion();
+        });
+
+        questionImage.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Practice.this);
+            View view = getLayoutInflater().inflate(R.layout.full_screen_img, null);
+            PhotoView photoView = view.findViewById(R.id.img);
+            photoView.setImageResource(imgId);
+            ImageButton imageButton = view.findViewById(R.id.close_btn);
+
+            builder.setView(view);
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+            imageButton.setOnClickListener(v1 -> alertDialog.dismiss());
         });
     }
 
@@ -124,6 +147,7 @@ public class Practice extends AppCompatActivity {
         containerView = findViewById(R.id.containerView);
         timer = findViewById(R.id.timer);
         question = findViewById(R.id.question);
+        questionImage = findViewById(R.id.question_image);
         counter = findViewById(R.id.counter);
         options = findViewById(R.id.options);
         option1 = findViewById(R.id.option_one);
@@ -150,6 +174,9 @@ public class Practice extends AppCompatActivity {
         explanation.setVisibility(View.INVISIBLE);
 
         ques = quesList.get(index);
+
+        loadImage();
+
         index++;
 
                 question.setText(ques.getQsn());
@@ -282,6 +309,19 @@ public class Practice extends AppCompatActivity {
         AdView adView = findViewById(R.id.banner_ad);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build();
         adView.loadAd(adRequest);
+    }
+
+    private void loadImage() {
+        String imageName = "q" + ques.getQsnNumber();
+        String PACKAGE_NAME = getApplicationContext().getPackageName();
+        imgId = getResources().getIdentifier(PACKAGE_NAME+":drawable/"+imageName, null, null);
+
+        if (imgId == 0){
+            questionImage.setVisibility(View.GONE);
+        } else {
+            questionImage.setVisibility(View.VISIBLE);
+            questionImage.setImageResource(imgId);
+        }
     }
 
     @Override

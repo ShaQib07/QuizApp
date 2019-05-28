@@ -46,30 +46,30 @@
         android:textSize="20sp"
         android:textColor="@color/black"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_below="@+id/counter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginBottom="120dp">
 
-        <ImageView
-            android:id="@+id/question_image"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="fitCenter"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/question"
-            android:layout_margin="16dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="24sp"/>
+            android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/question_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:id="@+id/question"
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="24sp"/>
 
             <RadioGroup
                 android:id="@+id/options"
@@ -117,9 +117,9 @@
 
             </RadioGroup>
 
-        </ScrollView>
+        </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/explanation"
