@@ -141,6 +141,9 @@ public class Practice extends AppCompatActivity {
         index = 0;
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
         quesList = dbRepo.getSubjectWiseRandomQuestion(subName, 10);
+        if (quesList.size() == 0){
+            finish();
+        }
     }
 
     private void viewSetup() {

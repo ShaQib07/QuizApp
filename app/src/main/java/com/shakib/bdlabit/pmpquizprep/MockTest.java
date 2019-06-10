@@ -211,6 +211,9 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
         index = 0;
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
         quesList = dbRepo.getSubjectWiseRandomQuestion(subName, 10);
+        if (quesList.size() < 10){
+            finish();
+        }
     }
 
     private void viewSetup() {

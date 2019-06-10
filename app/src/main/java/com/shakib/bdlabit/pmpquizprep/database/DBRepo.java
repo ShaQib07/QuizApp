@@ -93,8 +93,7 @@ public class DBRepo {
 
 
     private RealmList<QuestionDB> getSubjectWiseAllQuestion(String subjectName) {
-
-        return Objects.requireNonNull(realm.where(SubjectDB.class).equalTo("subName", subjectName).findFirst()).getQuestionDBRealmList();
+        return realm.where(SubjectDB.class).equalTo("subName", subjectName).findFirst().getQuestionDBRealmList();
     }
 
     public RealmList<QuestionDB> getSubjectWiseRandomQuestion(String subjectName, int quantity) {
@@ -105,26 +104,36 @@ public class DBRepo {
 
         if (subjectWiseAllQuestion.size() < quantity) {
             Toast.makeText(MyApplication.getInstance(), "Not enough question", Toast.LENGTH_LONG).show();
+            return selectedQuestion;
         } else if (subjectWiseAllQuestion.size() == quantity) {
             return selectedQuestion;
         }
 
-        for (int i = 0; i < quantity; i++) {
-
-            int x = new Random().nextInt((subjectWiseAllQuestion.size() - 1) + 1) + 1;
+        while(selectedQuestionNumberList.size() < quantity){
+            int x = new Random().nextInt(subjectWiseAllQuestion.size());  //random.nextInt(max - min + 1) + min
             if (!selectedQuestionNumberList.contains(x)) {
                 selectedQuestionNumberList.add(x);
                 selectedQuestion.add(subjectWiseAllQuestion.get(x));
             }
-
         }
 
+
+
+//
+//        for (int i = 0; i < quantity; i++) {
+//
+//            int x = new Random().nextInt(subjectWiseAllQuestion.size());  //random.nextInt(max - min + 1) + min
+//            if (!selectedQuestionNumberList.contains(x)) {
+//                selectedQuestionNumberList.add(x);
+//                selectedQuestion.add(subjectWiseAllQuestion.get(x));
+//            }
+//
+//        }
         return selectedQuestion;
     }
 
     private RealmList<FlashCardQuesDB> getSubjectWiseAllFalshCardQuestion(String subjectName){
-
-        return Objects.requireNonNull(realm.where(SubjectDB.class).equalTo("subName", subjectName).findFirst()).getFlashCardQuesDBRealmList();
+        return realm.where(SubjectDB.class).equalTo("subName", subjectName).findFirst().getFlashCardQuesDBRealmList();
     }
 
     public RealmList<FlashCardQuesDB> getSubjectWiseRandomFlashCardQuestion(String subjectName, int quantity) {
@@ -135,13 +144,16 @@ public class DBRepo {
 
         if (subjectWiseAllFlashCardQuestion.size() < quantity) {
             Toast.makeText(MyApplication.getInstance(), "Not enough question", Toast.LENGTH_LONG).show();
+            return selectedQuestion;
         } else if (subjectWiseAllFlashCardQuestion.size() == quantity) {
             return selectedQuestion;
         }
 
-        for (int i = 0; i < quantity; i++) {
+       // for (int i = 0; i < quantity; i++) {
 
-            int x = new Random().nextInt((subjectWiseAllFlashCardQuestion.size() - 1) + 1) + 1;
+        while(selectedQuestionNumberList.size() < quantity){
+
+            int x = new Random().nextInt(subjectWiseAllFlashCardQuestion.size());//.nextInt((subjectWiseAllFlashCardQuestion.size() - 1) + 1) + 1;
             if (!selectedQuestionNumberList.contains(x)) {
                 selectedQuestionNumberList.add(x);
                 selectedQuestion.add(subjectWiseAllFlashCardQuestion.get(x));

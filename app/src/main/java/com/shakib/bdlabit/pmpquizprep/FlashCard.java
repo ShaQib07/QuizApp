@@ -37,7 +37,7 @@ public class FlashCard extends AppCompatActivity {
     DBRepo dbRepo;
     String subName, flashName;
     List<FlashCardQuesDB> quesList;
-    FlashCardQuesDB question = new FlashCardQuesDB();
+    FlashCardQuesDB question; // = new FlashCardQuesDB();
     int i = 0, c = 2;
 
 
@@ -136,8 +136,13 @@ public class FlashCard extends AppCompatActivity {
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
         quesList = dbRepo.getSubjectWiseRandomFlashCardQuestion(subName, 1);
 
-        question = quesList.get(0);
-        ques.setText(question.getQsn());
+        if (quesList.size()>0) {
+
+            question = quesList.get(0);
+            ques.setText(question.getQsn());
+        }else {
+            finish();
+        }
         //Toast.makeText(this, ""+question.getQsn(), Toast.LENGTH_SHORT).show();
 
 

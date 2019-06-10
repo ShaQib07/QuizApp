@@ -187,7 +187,6 @@ public class LocSub extends AppCompatActivity {
                                                           Log.d("namenhfgvjksd", dataSnapshot.getChildrenCount()+"  "+i);
 
                                                           if (i == dataSnapshot1.getChildrenCount()) {
-
                                                               loadSubjectList();
                                                               SharePreferenceSingleton.getInstance(getApplicationContext()).saveBoolean(Constants.DATA_INSERTED, true);
                                                               progressDialog.dismiss();
