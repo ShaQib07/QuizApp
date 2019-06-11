@@ -11,8 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.shakib.bdlabit.pmpquizprep.Adapter.RecyclerAdapter;
 import com.shakib.bdlabit.pmpquizprep.Common.common;
@@ -37,10 +36,7 @@ import com.shakib.bdlabit.pmpquizprep.database.QuestionDB;
 import com.shakib.bdlabit.pmpquizprep.database.SubjectDB;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -54,7 +50,7 @@ public class LocSub extends AppCompatActivity {
 
     Realm realm;
     DBRepo dbRepo;
-    SubjectDB subjectDB = new SubjectDB();
+    //SubjectDB subjectDB = new SubjectDB();
 
     EditText searchSub;
     List<String> subNameList;
@@ -77,9 +73,9 @@ public class LocSub extends AppCompatActivity {
 
         isDataInserted = SharePreferenceSingleton.getInstance(getApplicationContext()).getBoolean(Constants.DATA_INSERTED);
 
-        if (!isDataInserted){
-            getAllDataFromFirebase() ;
-        }else {
+        if (!isDataInserted) {
+            getAllDataFromFirebase();
+        } else {
             loadSubjectList();
             showAds();
         }
@@ -105,8 +101,8 @@ public class LocSub extends AppCompatActivity {
 
     private void filter(String key) {
         List<String> filteredList = new ArrayList<>();
-        for (String s : subNameList){
-            if (s.toLowerCase().contains(key.toLowerCase())){
+        for (String s : subNameList) {
+            if (s.toLowerCase().contains(key.toLowerCase())) {
                 filteredList.add(s);
             }
         }
@@ -123,7 +119,7 @@ public class LocSub extends AppCompatActivity {
         mAdapter = new RecyclerAdapter(subNameList);
         mAdapter.setOnItemClickListener((position, v) -> {
             SharePreferenceSingleton.getInstance(getApplicationContext()).saveString("subject", mAdapter.getItem(position));
-            if (!common.isFirstTime){
+            if (!common.isFirstTime) {
                 Dashboard.dashBoard.finish();
             }
 
@@ -158,50 +154,48 @@ public class LocSub extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot1) {
                 for (DataSnapshot ds : dataSnapshot1.getChildren()) {
                     String name = ds.getKey();
-
+                    SubjectDB subjectDB = new SubjectDB();
+                    List<QuestionDB> questionDBList = new ArrayList<>();
+                    List<FlashCardQuesDB> flashCardQuesDBList = new ArrayList<>();
                     Log.d("name", name);
 
+                    GenericTypeIndicator<List<QuestionDB>> genericQuestionIndicator = new GenericTypeIndicator<List<QuestionDB>>() {
+                    };
+                    questionDBList = ds.child(FirebaseEndPoint.QUESTION).getValue(genericQuestionIndicator);
 
-                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference().child(name).child(FirebaseEndPoint.QUESTION);
-                    ref1.keepSynced(true);
-                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference().child(name).child(FirebaseEndPoint.FLASHCARD);
-                    ref2.keepSynced(true);
-                    ref1.addValueEventListener(new ValueEventListener() {
-                                                  @Override
-                                                  public void onDataChange(DataSnapshot dataSnapshot) {
-                                                      if (dataSnapshot.getValue() != null) {
-                                                          final RealmList<QuestionDB> questionDBRealmList = new RealmList<>();
-                                                          for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                              QuestionDB recentSearchModelFirebase = dataSnapshot1.getValue(QuestionDB.class);
-                                                              questionDBRealmList.add(recentSearchModelFirebase);
-                                                          }
-                                                          subjectDB.setSubName(name);
-                                                          subjectDB.setQuestionDBRealmList(questionDBRealmList);
+                    if (ds.child(FirebaseEndPoint.FLASHCARD).exists()) {
+                        GenericTypeIndicator<List<FlashCardQuesDB>> genericFlashIndicator = new GenericTypeIndicator<List<FlashCardQuesDB>>() {
+                        };
+                        flashCardQuesDBList = ds.child(FirebaseEndPoint.FLASHCARD).getValue(genericFlashIndicator);
+                    }
+
+                    RealmList<QuestionDB> questionDBRealmList = new RealmList<>();
+                    RealmList<FlashCardQuesDB> flashCardQuesDBRealmList = new RealmList<>();
+
+                    questionDBRealmList.addAll(questionDBList);
+                    flashCardQuesDBRealmList.addAll(flashCardQuesDBList);
+
+                    //     Log.d("data count qsn", questionDBRealmList.size() + "");
+                    // Log.d("data count", ds.child("questions").getChildrenCount()+"");
+                    //     Log.d("data count", flashCardQuesDBRealmList.size() + "");
+                    // Log.d("data count", ds.child("Flashcards").getChildrenCount()+"");
 
 
-                                                          realm.executeTransaction(realm -> {
-                                                              realm.insert(subjectDB);
-                                                              i++;
-                                                          });
+                    subjectDB.setSubName(name);
+                    subjectDB.setQuestionDBRealmList(questionDBRealmList);
+                    subjectDB.setFlashCardQuesDBRealmList(flashCardQuesDBRealmList);
 
-                                                          Log.d("namenhfgvjksd", dataSnapshot.getChildrenCount()+"  "+i);
+                    realm.executeTransaction(realm -> {
+                        realm.insert(subjectDB);
+                        i++;
+                    });
 
-                                                          if (i == dataSnapshot1.getChildrenCount()) {
-                                                              loadSubjectList();
-                                                              SharePreferenceSingleton.getInstance(getApplicationContext()).saveBoolean(Constants.DATA_INSERTED, true);
-                                                              progressDialog.dismiss();
-                                                              i=0;
-                                                          }
-
-                                                      }
-                                                  }
-
-                                                  @Override
-                                                  public void onCancelled(DatabaseError databaseError) {
-                                                      Toast.makeText(MyApplication.getInstance(), databaseError.getMessage(), Toast.LENGTH_LONG).show();
-                                                  }
-                                              });
-
+                    if (i == dataSnapshot1.getChildrenCount()) {
+                        loadSubjectList();
+                        SharePreferenceSingleton.getInstance(getApplicationContext()).saveBoolean(Constants.DATA_INSERTED, true);
+                        progressDialog.dismiss();
+                        i = 0;
+                    }
 
                 }
 
@@ -223,7 +217,7 @@ public class LocSub extends AppCompatActivity {
     }
 
     private void showAds() {
-        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
         adView = findViewById(R.id.banner_ad);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("FBFB1CF2E4D9FD9AA66C45BEBAE661B2").build();
