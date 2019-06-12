@@ -18,6 +18,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shakib.bdlabit.pmpquizprep.Adapter.MockAdapter;
 import com.shakib.bdlabit.pmpquizprep.Model.MockListItem;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
@@ -30,6 +31,8 @@ import io.realm.Realm;
 import io.realm.RealmList;
 
 public class FullMock extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private ActionBarDrawerToggle drawerToggle;
     DrawerLayout drawerLayout;
@@ -49,6 +52,8 @@ public class FullMock extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_mock);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);

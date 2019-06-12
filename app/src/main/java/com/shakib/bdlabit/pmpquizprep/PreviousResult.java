@@ -17,6 +17,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shakib.bdlabit.pmpquizprep.Adapter.PreviousAdapter;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
@@ -28,6 +29,8 @@ import io.realm.Realm;
 import io.realm.RealmList;
 
 public class PreviousResult extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private  FirebaseAnalytics mFirebaseAnalytics;
 
     private ActionBarDrawerToggle drawerToggle;
     DrawerLayout drawerLayout;
@@ -44,6 +47,9 @@ public class PreviousResult extends AppCompatActivity implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_result);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");

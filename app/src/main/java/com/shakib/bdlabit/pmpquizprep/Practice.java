@@ -23,6 +23,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import com.shakib.bdlabit.pmpquizprep.database.Favourite;
@@ -38,6 +39,8 @@ import io.realm.Realm;
 import io.realm.RealmList;
 
 public class Practice extends AppCompatActivity {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     RelativeLayout containerView;
     ProgressBar timer;
@@ -64,6 +67,8 @@ public class Practice extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         pracName = getIntent().getStringExtra("prac");
 

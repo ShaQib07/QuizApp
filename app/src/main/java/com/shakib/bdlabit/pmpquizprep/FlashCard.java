@@ -16,6 +16,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import com.shakib.bdlabit.pmpquizprep.database.FlashCardQuesDB;
@@ -27,6 +28,8 @@ import java.util.List;
 import io.realm.Realm;
 
 public class FlashCard extends AppCompatActivity {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private InterstitialAd interstitialAd;
 
@@ -46,6 +49,8 @@ public class FlashCard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_card);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         flashName = getIntent().getStringExtra("flash");
 

@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shakib.bdlabit.pmpquizprep.Common.common;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
@@ -21,6 +22,9 @@ import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import io.realm.Realm;
 
 public class Dashboard extends AppCompatActivity {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     public  static Activity dashBoard;
 
      CardView fullMock, practice, chapter, flashCard, previousResult, importantLink, goPro, changeSubject;
@@ -33,6 +37,9 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         common.isFirstTime = false;
         dashBoard = this;
         realm = Realm.getDefaultInstance();

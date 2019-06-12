@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +44,8 @@ import io.realm.RealmList;
 
 public class LocSub extends AppCompatActivity {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     public RecyclerView recyclerView;
     public RecyclerView.LayoutManager layoutManager;
     public RecyclerAdapter mAdapter;
@@ -62,6 +65,8 @@ public class LocSub extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loc_sub);
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         realm = Realm.getDefaultInstance();
         dbRepo = new DBRepo(realm);
         searchSub = findViewById(R.id.search);
@@ -80,6 +85,7 @@ public class LocSub extends AppCompatActivity {
             showAds();
         }
 
+        searchSub.findFocus();
         searchSub.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

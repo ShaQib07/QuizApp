@@ -21,6 +21,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shakib.bdlabit.pmpquizprep.Adapter.SeeAnswerAdapter;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.MockDB;
@@ -34,6 +35,8 @@ import io.realm.RealmList;
 import io.realm.RealmModel;
 
 public class Answer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private ActionBarDrawerToggle drawerToggle;
     private InterstitialAd interstitialAd;
@@ -51,6 +54,9 @@ public class Answer extends AppCompatActivity implements NavigationView.OnNaviga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         realm = Realm.getDefaultInstance();
         mockupNo = getIntent().getStringExtra("mockupNo");
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");

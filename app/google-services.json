@@ -21,6 +21,10 @@
             "package_name": "com.shakib.bdlabit.pmpquizprep",
             "certificate_hash": "9305bb27637226da30a6ad8ac30b623b9d8b6c26"
           }
+        },
+        {
+          "client_id": "452056543863-q9t98rigjdlrqogf1ba4qm3bstc4oto0.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [

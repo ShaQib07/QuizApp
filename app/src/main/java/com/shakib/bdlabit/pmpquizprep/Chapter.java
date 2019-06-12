@@ -18,6 +18,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shakib.bdlabit.pmpquizprep.Adapter.ListAdapter;
 import com.shakib.bdlabit.pmpquizprep.Adapter.MockAdapter;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Chapter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private ActionBarDrawerToggle drawerToggle;
     DrawerLayout drawerLayout;
@@ -41,6 +44,8 @@ public class Chapter extends AppCompatActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
         setTitle(subName);

@@ -27,6 +27,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.MockDB;
 import com.shakib.bdlabit.pmpquizprep.database.PracticeDB;
@@ -37,6 +38,8 @@ import java.util.Objects;
 import io.realm.Realm;
 
 public class Result extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private InterstitialAd interstitialAd;
     private ActionBarDrawerToggle drawerToggle;
@@ -63,6 +66,8 @@ public class Result extends AppCompatActivity implements NavigationView.OnNaviga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         subName = SharePreferenceSingleton.getInstance(getApplicationContext()).getString("subject");
         setTitle(subName);

@@ -1,7 +1,5 @@
 package com.shakib.bdlabit.pmpquizprep;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -28,6 +26,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shakib.bdlabit.pmpquizprep.Utils.SharePreferenceSingleton;
 import com.shakib.bdlabit.pmpquizprep.database.DBRepo;
 import com.shakib.bdlabit.pmpquizprep.database.Favourite;
@@ -42,6 +41,8 @@ import io.realm.Realm;
 import io.realm.RealmList;
 
 public class MockTest extends AppCompatActivity implements RewardedVideoAdListener {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private RewardedVideoAd rewardedVideoAd;
     RelativeLayout containerView;
@@ -77,6 +78,9 @@ public class MockTest extends AppCompatActivity implements RewardedVideoAdListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mock_test);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         loadAd();
         DBsetup();
         fetchData();
