@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="com.shakib.bdlabit.pmpquizprep">
+    package="com.shakib.bdlabit.quiz">
 
     <dist:module dist:instant="true" />
 
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".Utils.MyApplication"
+        android:name="com.shakib.bdlabit.quiz.Utils.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,31 +17,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".FlashCardActivity" />
-        <activity android:name=".PracticeActivity" />
-        <activity android:name=".Favorite" />
-        <activity android:name=".Answer" />
-        <activity android:name=".Result" />
+        <activity android:name="com.shakib.bdlabit.quiz.FlashCardActivity" />
+        <activity android:name="com.shakib.bdlabit.quiz.PracticeActivity" />
+        <activity android:name="com.shakib.bdlabit.quiz.Favorite" />
+        <activity android:name="com.shakib.bdlabit.quiz.Answer" />
+        <activity android:name="com.shakib.bdlabit.quiz.Result" />
         <activity
-            android:name=".MockTest"
+            android:name="com.shakib.bdlabit.quiz.MockTest"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ImportantLink" />
+        <activity android:name="com.shakib.bdlabit.quiz.ImportantLink" />
         <activity
-            android:name=".FlashCard"
+            android:name="com.shakib.bdlabit.quiz.FlashCard"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".PreviousResult" />
-        <activity android:name=".Chapter" />
+        <activity android:name="com.shakib.bdlabit.quiz.PreviousResult" />
+        <activity android:name="com.shakib.bdlabit.quiz.Chapter" />
         <activity
-            android:name=".Practice"
+            android:name="com.shakib.bdlabit.quiz.Practice"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".FullMock" />
-        <activity android:name=".Dashboard" />
+        <activity android:name="com.shakib.bdlabit.quiz.FullMock" />
+        <activity android:name="com.shakib.bdlabit.quiz.Dashboard" />
         <activity
-            android:name=".LocSub"
+            android:name="com.shakib.bdlabit.quiz.LocSub"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Splash"
+            android:name="com.shakib.bdlabit.quiz.Splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,7 +50,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".Service.MyFirebaseMessagingService">
+        <service android:name="com.shakib.bdlabit.quiz.Service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
